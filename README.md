@@ -1,4 +1,4 @@
-# Stayology SynServer
+# Gateway Server
 
 ## generating cert keys for `HTTP/2`
 
