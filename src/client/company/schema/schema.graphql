@@ -1,0 +1,43 @@
+type Company {
+	id: ID!
+	name: String
+	description: String
+	createdBy: ID
+	url: String
+	logo: String
+	location: String
+	founded_year: String
+	noOfEmployees: Range
+	lastActive: Timestamp
+	hiringStatus: Boolean
+	skills: [String]
+
+	createdAt: Timestamp!
+	updatedAt: Timestamp!
+}
+
+input CompanyInput {
+	createdBy: ID!
+	name: String!
+	description: String!
+	url: String
+	logo: String
+	location: String
+	foundedYear: String
+	noOfEmployees: RangeInput
+	hiringStatus: Boolean
+	skills: [String]
+}
+
+extend type Query {
+	ReadCompanies(input: PaginationInput): [Company]!
+	ReadCompany(input: ID): Company
+}
+extend type Mutation {
+	CreateCompany(input: CompanyInput!): Id!
+	# 	UpdateCompany(input: CompanyInput!): ID!
+	# 	DeleteCompany(input: CompanyInput!): ID!
+}
+extend type Subscription {
+	companyCreated: Id!
+}

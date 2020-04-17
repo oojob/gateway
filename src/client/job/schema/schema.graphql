@@ -1,0 +1,65 @@
+enum CurrentStatus {
+	ACTIVE
+	HOLD
+	EXPIRED
+}
+enum JobType {
+	DEFAULT
+	FEATURED
+	PREMIUM
+}
+type Sallary {
+	value: Float!
+	currency: String!
+}
+
+type Job {
+	id: ID!
+	name: String!
+	type: JobType!
+	category: [String!]!
+	desc: String!
+	skillsRequired: [String!]!
+	sallary: Range
+	location: String!
+	attachment: [Attachment]
+	status: CurrentStatus
+	views: Int
+	usersApplied: [String!]
+	createdBy: String
+	company: String!
+
+	createdAt: Timestamp!
+	updatedAt: Timestamp!
+}
+type JobResultCursor {
+	edges: Edge!
+	pageInfo: PageInfo!
+	totalCount: Int!
+}
+
+input SallaryMutation {
+	value: Float!
+	currency: String!
+}
+input createJobInput {
+	name: String!
+	type: JobType!
+	category: [String!]!
+	desc: String!
+	skills_required: [String!]!
+	sallary: RangeInput!
+	sallary_max: SallaryMutation!
+	attachment: [AttachmentMutation]
+	location: String!
+	status: CurrentStatus!
+	company: String!
+}
+
+extend type Query {
+	jobs(input: Pagination): JobResultCursor!
+	job(input: ID!): Job
+}
+extend type Mutation {
+	createJobs(input: createJobInput!): Result!
+}

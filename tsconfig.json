@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"module": "commonjs",
+		"declaration": true,
+		"removeComments": true,
+		"emitDecoratorMetadata": true,
+		"experimentalDecorators": true,
+		"target": "es6",
+		"lib": ["es6", "es2015.collection", "es2015.iterable"],
+		"moduleResolution": "node",
+		"sourceMap": true,
+		"noImplicitAny": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"strictPropertyInitialization": false,
+		"strict": true,
+		"outDir": "./dist",
+		"baseUrl": "src",
+		"allowSyntheticDefaultImports": true,
+		"downlevelIteration": true,
+		"importHelpers": true,
+		"typeRoots": ["typings", "node_modules/@types"]
+	},
+	"include": ["src/**/*", "typings/**/*"],
+	"exclude": ["node_modules", "dist", "**/*/spec.ts", "**/*.test.ts"]
+}

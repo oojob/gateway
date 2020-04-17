@@ -1,0 +1,96 @@
+{
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier/@typescript-eslint",
+		"plugin:jsdoc/recommended",
+		"plugin:prettier/recommended"
+	],
+	"plugins": ["@typescript-eslint", "prettier", "jsdoc"],
+	"env": {
+		"node": true,
+		"jest": true
+	},
+	"rules": {
+		"camelcase": "off",
+		"arrow-body-style": [2, "as-needed"],
+		"class-methods-use-this": 0,
+		"comma-dangle": 2,
+		"no-cond-assign": 2,
+		"no-console": [
+			"error",
+			{
+				"allow": ["warn", "error"]
+			}
+		],
+		"no-debugger": 2,
+		"no-empty": 2,
+		"max-len": [1, 120, 2],
+		"semi": [
+			"error",
+			"never",
+			{
+				"beforeStatementContinuationChars": "always"
+			}
+		],
+		"space-before-function-paren": [
+			"error",
+			{
+				"anonymous": "always",
+				"named": "never",
+				"asyncArrow": "always"
+			}
+		],
+		"no-tabs": 0,
+		"sort-imports": [
+			"error",
+			{
+				"memberSyntaxSortOrder": ["none", "all", "multiple", "single"],
+				"ignoreMemberSort": false,
+				"ignoreCase": false
+			}
+		],
+		"indent": [
+			"error",
+			"tab",
+			{
+				"SwitchCase": 1
+			}
+		],
+		"linebreak-style": ["error", "unix"],
+		"quotes": [
+			"error",
+			"single",
+			{
+				"avoidEscape": true
+			}
+		],
+		"newline-before-return": "error",
+		"padding-line-between-statements": [
+			"error",
+			{
+				"blankLine": "always",
+				"prev": "*",
+				"next": "return"
+			}
+		],
+		"@typescript-eslint/camelcase": [
+			"error",
+			{
+				"properties": "never",
+				"ignoreDestructuring": true
+			}
+		],
+		"@typescript-eslint/no-empty-interface": [
+			"error",
+			{
+				"allowSingleExtends": false
+			}
+		],
+		"@typescript-eslint/class-name-casing": 0,
+		"@typescript-eslint/explicit-function-return-type": "off",
+		"@typescript-eslint/no-explicit-any": "off",
+		"@typescript-eslint/interface-name-prefix": "off"
+	},
+	"parser": "@typescript-eslint/parser"
+}

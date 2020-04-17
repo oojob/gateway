@@ -1,0 +1,87 @@
+scalar Date
+
+enum Permissions {
+	ADMIN
+	COMPANY
+	JOB
+	INVESTOR
+	COMPANYREAD
+	JOBREAD
+	INVESTORREAD
+	PERMISSIONUPDATE
+}
+enum Gender {
+	MALE
+	FEMALE
+	OTHER
+}
+enum AccType {
+	BASE_USER
+	COMPANY_USER
+	FUNDING_USER
+	JOB_USER
+}
+enum Sort {
+	ASC
+	DESC
+}
+
+type Timestamp {
+	seconds: String
+	nanos: String
+}
+type Id {
+	id: ID!
+}
+type Range {
+	min: Int!
+	max: Int!
+}
+type Attachment {
+	type: String
+	file: String
+}
+type PageInfo {
+	endCursor: String!
+	hasNextPage: Boolean!
+}
+type Pagination {
+	skip: String
+	limit: Int
+}
+
+input IdInput {
+	id: ID!
+}
+input RangeInput {
+	min: Int!
+	max: Int!
+}
+input AttachmentInput {
+	type: String
+	file: String
+}
+input PaginationInput {
+	page: Int
+	first: Int
+	after: String
+	offset: Int
+	sort: Sort
+	skip: String
+	limit: Int
+}
+
+type Query {
+	dummy: String!
+}
+type Mutation {
+	dummy: String!
+}
+type Subscription {
+	dummy: String!
+}
+schema {
+	query: Query
+	mutation: Mutation
+	subscription: Subscription
+}
