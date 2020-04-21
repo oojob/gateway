@@ -1,0 +1,11 @@
+type Review implements INode {
+	id: ID!
+	user_id: String!
+	stars: Int!
+	pros: [String]
+	cons: [String]
+	suggestions: [String]
+	review: String!
+	created_at: String!
+	updated_at: String!
+}

@@ -41,6 +41,10 @@ type Attachment {
 	type: String
 	file: String
 }
+type Edge {
+	cursor: String!
+	node: [Result!]!
+}
 type PageInfo {
 	endCursor: String!
 	hasNextPage: Boolean!
@@ -48,6 +52,12 @@ type PageInfo {
 type Pagination {
 	skip: String
 	limit: Int
+}
+
+interface INode {
+	id: ID!
+	createdAt: Timestamp!
+	updatedAt: Timestamp!
 }
 
 input IdInput {
@@ -70,6 +80,8 @@ input PaginationInput {
 	skip: String
 	limit: Int
 }
+
+union Result = Job | Company
 
 type Query {
 	dummy: String!

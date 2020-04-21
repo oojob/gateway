@@ -4,7 +4,21 @@ export declare const Query: {
     ReadCompany: (_: any, { input }: any) => Promise<Company.AsObject>;
     ReadCompanies: (_: any, { input }: any) => Promise<Company.AsObject[]>;
 };
-declare const companyResolvers: {
+export declare const Mutation: {
+    CreateCompany: (_: any, { input }: any, { pubsub }: {
+        pubsub: PubSub;
+    }) => Promise<Id.AsObject>;
+    UpdateCompany: () => void;
+    DeleteCompany: () => void;
+};
+export declare const Subscription: {
+    CompanyCreated: {
+        subscribe: (_: any, __: any, { pubsub }: {
+            pubsub: PubSub;
+        }) => AsyncIterator<unknown, any, undefined>;
+    };
+};
+export declare const companyResolvers: {
     Query: {
         ReadCompany: (_: any, { input }: any) => Promise<Company.AsObject>;
         ReadCompanies: (_: any, { input }: any) => Promise<Company.AsObject[]>;
@@ -13,9 +27,11 @@ declare const companyResolvers: {
         CreateCompany: (_: any, { input }: any, { pubsub }: {
             pubsub: PubSub;
         }) => Promise<Id.AsObject>;
+        UpdateCompany: () => void;
+        DeleteCompany: () => void;
     };
     Subscription: {
-        companyCreated: {
+        CompanyCreated: {
             subscribe: (_: any, __: any, { pubsub }: {
                 pubsub: PubSub;
             }) => AsyncIterator<unknown, any, undefined>;

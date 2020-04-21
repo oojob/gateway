@@ -13,7 +13,7 @@ type Sallary {
 	currency: String!
 }
 
-type Job {
+type Job implements INode {
 	id: ID!
 	name: String!
 	type: JobType!
@@ -38,28 +38,31 @@ type JobResultCursor {
 	totalCount: Int!
 }
 
-input SallaryMutation {
+input SallaryInput {
 	value: Float!
 	currency: String!
 }
-input createJobInput {
+input CreateJobInput {
 	name: String!
 	type: JobType!
 	category: [String!]!
 	desc: String!
 	skills_required: [String!]!
 	sallary: RangeInput!
-	sallary_max: SallaryMutation!
-	attachment: [AttachmentMutation]
+	sallary_max: SallaryInput!
+	attachment: [AttachmentInput]
 	location: String!
 	status: CurrentStatus!
 	company: String!
 }
 
 extend type Query {
-	jobs(input: Pagination): JobResultCursor!
-	job(input: ID!): Job
+	ReadJobs(input: PaginationInput): [Job]!
+	ReadJob(input: ID!): Job
+	ReadMyJobs(input: ID!): [Job]!
 }
 extend type Mutation {
-	createJobs(input: createJobInput!): Result!
+	CreateJob(input: CreateJobInput!): Id!
+	UpdateJob(input: CreateJobInput!): Id!
+	DeleteJob(input: ID!): Id!
 }

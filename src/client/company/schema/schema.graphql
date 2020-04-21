@@ -1,4 +1,4 @@
-type Company {
+type Company implements INode {
 	id: ID!
 	name: String
 	description: String
@@ -31,13 +31,14 @@ input CompanyInput {
 
 extend type Query {
 	ReadCompanies(input: PaginationInput): [Company]!
+	ReadMyCompanies(input: ID!): [Company]!
 	ReadCompany(input: ID): Company
 }
 extend type Mutation {
 	CreateCompany(input: CompanyInput!): Id!
-	# 	UpdateCompany(input: CompanyInput!): ID!
-	# 	DeleteCompany(input: CompanyInput!): ID!
+	UpdateCompany(input: CompanyInput!): Id!
+	DeleteCompany(input: ID!): Id!
 }
 extend type Subscription {
-	companyCreated: Id!
+	CompanyCreated: Id!
 }

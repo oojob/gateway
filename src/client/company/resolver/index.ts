@@ -1,5 +1,6 @@
 import { Company, CompanyAllResponse, Id, Pagination, Range } from '@oojob/protorepo-company-node/service_pb'
 import { createCompany, readAllCompanies, readCompany } from '../transformer'
+
 import { PubSub } from 'apollo-server-express'
 
 const COMPANY_CREATED = 'COMPANY_CREATED'
@@ -26,6 +27,11 @@ const ReadCompanies = async (_: any, { input }: any) => {
 	} catch (error) {
 		throw new Error(error)
 	}
+}
+
+export const Query = {
+	ReadCompany,
+	ReadCompanies
 }
 
 const CreateCompany = async (_: any, { input }: any, { pubsub }: { pubsub: PubSub }) => {
@@ -55,25 +61,26 @@ const CreateCompany = async (_: any, { input }: any, { pubsub }: { pubsub: PubSu
 	}
 }
 const UpdateCompany = () => {}
+
 const DeleteCompany = () => {}
 
-export const Query = {
-	ReadCompany,
-	ReadCompanies
+export const Mutation = {
+	CreateCompany,
+	UpdateCompany,
+	DeleteCompany
 }
 
-const companyResolvers = {
+const CompanyCreated = {
+	subscribe: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => pubsub.asyncIterator(COMPANY_CREATED)
+}
+
+export const Subscription = {
+	CompanyCreated
+}
+
+export const companyResolvers = {
 	Query,
-	Mutation: {
-		CreateCompany
-		// 	UpdateCompany,
-		// 	DeleteCompany
-	},
-	Subscription: {
-		companyCreated: {
-			subscribe: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => pubsub.asyncIterator(COMPANY_CREATED)
-		}
-	}
+	Mutation,
+	Subscription
 }
-
 export default companyResolvers
