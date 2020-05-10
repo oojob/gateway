@@ -1,0 +1,51 @@
+enum AccountType {
+	BASE
+	COMPANY
+	FUNDING
+	JOB
+}
+enum Gender {
+	MALE
+	FEMALE
+	OTHER
+}
+enum ProfileOperations {
+	CREATE
+	READ
+	UPDATE
+	DELETE
+	BULK_UPDATE
+}
+enum OperationEntity {
+	COMPANY
+	JOB
+	INVESTOR
+}
+type Education {
+	education: String
+	show: Boolean
+}
+type ProfileSecurity {
+	password: String
+	passwordSalt: String
+	passwordHash: String
+	code: String
+	codeType: String
+	accountType: AccountType
+	verified: Boolean
+}
+type Profile {
+	identity: Identifier
+	givenName: String
+	middleName: String
+	familyName: String
+	username: String
+	Email: String
+	gender: Gender
+	birthdate: Timestamp
+	currentPosition: String
+	education: Education
+	address: Address
+	security: ProfileSecurity
+	metadata: Metadata
+}

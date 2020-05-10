@@ -54,7 +54,10 @@
 			"error",
 			"tab",
 			{
-				"SwitchCase": 1
+				"SwitchCase": 1,
+				"ignoredNodes": ["ConditionalExpression"],
+				"ignoreComments": true,
+				"ArrayExpression": "first"
 			}
 		],
 		"linebreak-style": ["error", "unix"],

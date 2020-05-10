@@ -1,9 +1,11 @@
+/* eslint-disable @typescript-eslint/no-var-requires  */
 const path = require('path')
 const webpack = require('webpack')
 const merge = require('webpack-merge')
 const StartServerPlugin = require('start-server-webpack-plugin')
 const nodeExternals = require('webpack-node-externals')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
 const { NODE_ENV } = process.env
 const isProduction = typeof NODE_ENV !== 'undefined' && NODE_ENV === 'production'
@@ -12,7 +14,9 @@ const devtool = isProduction ? false : 'inline-source-map'
 const dist = path.resolve(__dirname, '..', '..', 'dist')
 const plugins = [new webpack.NamedModulesPlugin(), new CleanWebpackPlugin({})]
 const entry = isProduction ? ['webpack/hot/poll?1000', './src/index.ts'] : ['./src/index.ts']
+const configFile = path.join(__dirname, '..', '..', 'tsconfig.json')
 
+/* eslint-disable no-console */
 console.log(`Building for : ${mode} environment`)
 
 module.exports = merge(
@@ -27,12 +31,24 @@ module.exports = merge(
 		externals: [nodeExternals({ whitelist: ['webpack/hot/poll?1000'] })],
 		module: {
 			rules: [
-				{ test: /\.tsx?$/, use: 'ts-loader', exclude: /node_modules/ },
+				{
+					test: /\.tsx?$/,
+					loader: 'ts-loader',
+					exclude: /node_modules/,
+					options: {
+						configFile
+					}
+				},
 				{ test: /\.graphql?$/, loader: 'webpack-graphql-loader' }
 			]
 		},
 		resolve: {
-			extensions: ['.tsx', '.ts', '.js']
+			extensions: ['.tsx', '.ts', '.js'],
+			plugins: [
+				new TsconfigPathsPlugin({
+					configFile
+				})
+			]
 		},
 		plugins: isProduction
 			? [...plugins]

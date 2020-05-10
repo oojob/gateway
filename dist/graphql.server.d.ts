@@ -1,9 +1,9 @@
 import { ApolloServer, PubSub } from 'apollo-server-express';
 export declare const pubsub: PubSub;
-export declare const typeDefs: any[];
+export declare const typeDefs: import("graphql").DocumentNode[];
 export declare const resolvers: {
     Query: {
-        dummy: () => string;
+        dummy: () => Promise<string>;
     };
     Mutation: {
         dummy: () => Promise<string>;

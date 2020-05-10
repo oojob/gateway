@@ -1,8 +1,8 @@
 import * as express from 'express'
 
-import AppUtils from './utillity'
+import AppUtils from 'utillity'
 import { Application } from 'express'
-import middlewaes from './middlewares'
+import middlewaes from 'middlewares'
 
 class App {
 	public app: Application

@@ -1,6 +1,27 @@
+import { Identifier } from '@oojob/oojob-protobuf'
+import { Profile } from '@oojob/protorepo-profile-node/service_pb'
+import { createProfile } from '../../profile/transformer'
+
 const rootResolvers = {
 	Query: {
-		dummy: () => 'dodo duck lives here'
+		dummy: async () => {
+			// do for dodo
+			try {
+				const profile = new Profile()
+				const identifier = new Identifier()
+				identifier.setName('dodo duck')
+				identifier.setIdentifier('UTF1234:)(()')
+				identifier.setAlternateName('dodo duck alternate name')
+				profile.setIdentity(identifier)
+
+				const res = await createProfile(profile)
+				console.log(res)
+			} catch (error) {
+				console.log(error)
+			}
+
+			return 'dodo duck lives here'
+		}
 	},
 	Mutation: {
 		dummy: async () => {

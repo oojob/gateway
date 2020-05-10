@@ -1,0 +1,7 @@
+type Metadata {
+	created_at: Timestamp
+	updated_at: Timestamp
+	published_date: Timestamp
+	end_date: Timestamp
+	last_active: Timestamp
+}

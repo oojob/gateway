@@ -1,0 +1,51 @@
+type Rating {
+	author: String
+	bestRating: Int
+	explanation: String
+	value: Int
+	worstRating: Int
+}
+
+type AggregateRating {
+	itemReviewed: String!
+	ratingCount: Int!
+	reviewCount: Int
+}
+
+type Review {
+	itemReviewed: String
+	aspect: String
+	body: String
+	rating: String
+}
+
+type GeoLocation {
+	elevation: Int
+	latitude: Int
+	longitude: Int
+	postalCode: Int
+}
+
+type Address {
+	country: String!
+	locality: String
+	region: String
+	postalCode: Int
+	street: String
+}
+
+type Place {
+	address: Address
+	review: Review
+	aggregateRating: AggregateRating
+	branchCode: String
+	geo: GeoLocation
+}
+
+type AddressInput {
+	country: String
+	locality: String
+	region: String
+	postalCode: Int
+	street: String
+}

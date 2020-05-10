@@ -1,5 +1,5 @@
 import * as express from 'express';
-import AppUtils from './utillity';
+import AppUtils from 'utillity';
 import { Application } from 'express';
 declare class App {
     app: Application;

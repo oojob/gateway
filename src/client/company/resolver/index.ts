@@ -1,5 +1,5 @@
 import { Company, CompanyAllResponse, Id, Pagination, Range } from '@oojob/protorepo-company-node/service_pb'
-import { createCompany, readAllCompanies, readCompany } from '../transformer'
+import { createCompany, readAllCompanies, readCompany } from 'client/company/transformer'
 
 import { PubSub } from 'apollo-server-express'
 

@@ -1,4 +1,4 @@
-import companyClient from '../'
+import companyClient from 'client/company'
 import { promisify } from 'util'
 
 export const readCompany = promisify(companyClient.readCompany).bind(companyClient)

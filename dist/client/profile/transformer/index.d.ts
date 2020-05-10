@@ -1,0 +1,9 @@
+/// <reference types="grpc" />
+export declare const createProfile: (arg1: import("@oojob/protorepo-profile-node/service_pb").Profile) => Promise<unknown>;
+export declare const confirmProfile: (arg1: import("@oojob/protorepo-profile-node/service_pb").ConfirmProfileRequest) => Promise<unknown>;
+export declare const readProfile: (arg1: import("@oojob/protorepo-profile-node/service_pb").ReadProfileRequest) => Promise<unknown>;
+export declare const updateProfile: (arg1: import("@oojob/protorepo-profile-node/service_pb").Profile) => Promise<unknown>;
+export declare const validateUsername: (arg1: import("@oojob/protorepo-profile-node/service_pb").ValidateUsernameRequest) => Promise<unknown>;
+export declare const validateEmail: (arg1: import("@oojob/protorepo-profile-node/service_pb").ValidateEmailRequest) => Promise<unknown>;
+export declare const check: (arg1: import("@oojob/oojob-protobuf/health_pb").HealthCheckRequest) => Promise<unknown>;
+export declare const watch: (arg1: import("@oojob/oojob-protobuf/health_pb").HealthCheckRequest, arg2: import("grpc").Metadata | null | undefined) => Promise<unknown>;

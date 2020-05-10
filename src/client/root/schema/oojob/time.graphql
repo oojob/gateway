@@ -1,0 +1,17 @@
+enum DaysOfWeek {
+	MONDAY
+	TUESDAY
+	WEDNESDAY
+	THRUSDAY
+	FRIDAY
+	STAURDAY
+	SUNDAY
+}
+
+type Time {
+	opens: Timestamp
+	closes: Timestamp
+	daysOfWeek: DaysOfWeek
+	validFrom: Timestamp
+	validThrough: Timestamp
+}

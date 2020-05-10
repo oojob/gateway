@@ -1,0 +1,27 @@
+enum Sort {
+	ASC
+	DESC
+}
+
+type Pagination {
+	page: Int
+	first: Int
+	after: String
+	offset: Int
+	limit: Int
+	sort: Sort
+	previous: String
+	next: String
+	identifier: String
+}
+
+input PaginationInput {
+	page: Int
+	first: Int
+	after: String
+	offset: Int
+	limit: Int
+	sort: Sort
+	previous: String
+	next: String
+}

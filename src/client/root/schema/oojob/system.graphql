@@ -1,0 +1,65 @@
+type Range {
+	min: Int!
+	max: Int!
+}
+type Id {
+	id: ID!
+}
+enum EmailStatus {
+	WAITING
+	CONFIRMED
+	BLOCKED
+	EXPIRED
+}
+type Email {
+	email: String
+	status: EmailStatus
+	show: Boolean
+}
+type Attachment {
+	type: String
+	file: String
+	uploadDate: Timestamp
+	url: String
+	user: String
+	folder: String
+}
+type Identifier {
+	identifier: String!
+	name: String
+	alternateName: String
+	type: String
+	additionalType: String
+	description: String
+	disambiguatingDescription: String
+	headline: String
+	slogan: String
+}
+
+input RangeInput {
+	min: Int!
+	max: Int!
+}
+input IdInput {
+	id: ID!
+}
+input EmailInput {
+	email: String
+	show: Boolean
+}
+input AttachmentInput {
+	type: String
+	file: String
+	user: String
+	folder: String
+}
+input IdentifierInput {
+	name: String
+	alternateName: String
+	type: String
+	additionalType: String
+	description: String
+	disambiguatingDescription: String
+	headline: String
+	slogan: String
+}

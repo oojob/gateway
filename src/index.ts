@@ -3,10 +3,10 @@ import 'dotenv/config'
 import { Server, createServer } from 'http'
 import { fork, isMaster, on } from 'cluster'
 
-import App from './app'
+import App from 'app.server'
 import { Application } from 'express'
-import graphqlServer from './graphql'
-import { normalizePort } from './utillity/normalize'
+import graphqlServer from 'graphql.server'
+import { normalizePort } from 'utillity/normalize'
 
 declare const module: any
 
@@ -88,7 +88,7 @@ if (isMaster) {
 	 */
 	let currentApp = app
 	if (module.hot) {
-		module.hot.accept('./app', () => {
+		module.hot.accept('app.server', () => {
 			server.removeListener('request', currentApp)
 			server.on('request', app)
 			currentApp = app

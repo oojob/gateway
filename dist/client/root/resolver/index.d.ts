@@ -1,6 +1,6 @@
 declare const rootResolvers: {
     Query: {
-        dummy: () => string;
+        dummy: () => Promise<string>;
     };
     Mutation: {
         dummy: () => Promise<string>;

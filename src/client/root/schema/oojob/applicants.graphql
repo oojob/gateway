@@ -1,0 +1,6 @@
+type Applicant {
+	applications: [String]!
+	shortlisted: [String]!
+	onhold: [String]!
+	rejected: [String]!
+}
