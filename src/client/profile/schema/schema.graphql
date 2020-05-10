@@ -40,7 +40,7 @@ type Profile {
 	middleName: String
 	familyName: String
 	username: String
-	Email: String
+	email: Email
 	gender: Gender
 	birthdate: Timestamp
 	currentPosition: String
@@ -49,3 +49,30 @@ type Profile {
 	security: ProfileSecurity
 	metadata: Metadata
 }
+
+input EducationInput {
+	education: String
+	show: Boolean
+}
+input ProfileSecurityInput {
+	password: String
+	accountType: AccountType
+}
+input ProfileInput {
+	identity: IdentifierInput
+	givenName: String
+	middleName: String
+	familyName: String
+	username: String
+	email: EmailInput
+	gender: Gender
+	birthdate: TimestampInput
+	currentPosition: String
+	education: EducationInput
+	address: AddressInput
+	security: ProfileSecurityInput
+}
+
+# extend type Mutation {
+# 	CreateProfile(input: ProfileInput!): Id!
+# }

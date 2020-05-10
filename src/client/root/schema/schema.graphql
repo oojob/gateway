@@ -1,10 +1,5 @@
 scalar Date
 
-type Timestamp {
-	seconds: String
-	nanos: String
-}
-
 type Edge {
 	cursor: String!
 	node: [Result!]!

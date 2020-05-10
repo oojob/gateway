@@ -11,8 +11,6 @@ import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 
 import { ApolloServer, PubSub } from 'apollo-server-express'
 
-import companyResolvers from 'client/company/resolver'
-import jobResolvers from 'client/job/resolver'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
 
@@ -25,11 +23,11 @@ export const typeDefs = [
 	placeSchema,
 	systemSchema,
 	timeSchema,
+	profileSchema,
 	companySchema,
-	jobSchema,
-	profileSchema
+	jobSchema
 ]
-export const resolvers = merge({}, rootResolvers, companyResolvers, jobResolvers)
+export const resolvers = merge({}, rootResolvers)
 
 const server = new ApolloServer({
 	typeDefs,

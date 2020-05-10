@@ -42,7 +42,7 @@ type Place {
 	geo: GeoLocation
 }
 
-type AddressInput {
+input AddressInput {
 	country: String
 	locality: String
 	region: String

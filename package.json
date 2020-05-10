@@ -18,17 +18,10 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags",
-    "prestart": "npm run generate",
-    "predev": "npm run generate",
-    "generate": "graphql-codegen --config codegen.yml"
+    "postversion": "git push && git push --tags"
   },
   "keywords": [],
   "devDependencies": {
-    "@graphql-codegen/cli": "^1.13.2",
-    "@graphql-codegen/introspection": "1.13.2",
-    "@graphql-codegen/typescript": "1.13.2",
-    "@graphql-codegen/typescript-resolvers": "1.13.2",
     "@types/body-parser": "^1.17.1",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
@@ -64,7 +57,7 @@
   "dependencies": {
     "@oojob/oojob-protobuf": "0.0.2",
     "@oojob/protorepo-company-node": "0.0.10",
-    "@oojob/protorepo-profile-node": "0.0.1",
+    "@oojob/protorepo-profile-node": "0.0.2",
     "apollo-server-express": "^2.11.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",

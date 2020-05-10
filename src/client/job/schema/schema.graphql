@@ -56,13 +56,13 @@ input CreateJobInput {
 	company: String!
 }
 
-extend type Query {
-	ReadJobs(input: PaginationInput): [Job]!
-	ReadJob(input: ID!): Job
-	ReadMyJobs(input: ID!): [Job]!
-}
-extend type Mutation {
-	CreateJob(input: CreateJobInput!): Id!
-	UpdateJob(input: CreateJobInput!): Id!
-	DeleteJob(input: ID!): Id!
-}
+# extend type Query {
+# 	ReadJobs(input: PaginationInput): [Job]!
+# 	ReadJob(input: ID!): Job
+# 	ReadMyJobs(input: ID!): [Job]!
+# }
+# extend type Mutation {
+# 	CreateJob(input: CreateJobInput!): Id!
+# 	UpdateJob(input: CreateJobInput!): Id!
+# 	DeleteJob(input: ID!): Id!
+# }

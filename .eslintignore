@@ -2,6 +2,8 @@
 src/**/__tests__/**
 node_modules
 dist
+src/generated/**
+graphql.schema.json
 
 locale/**/*.js
 locale/_build/

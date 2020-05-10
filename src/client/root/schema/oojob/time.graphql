@@ -7,11 +7,19 @@ enum DaysOfWeek {
 	STAURDAY
 	SUNDAY
 }
-
+type Timestamp {
+	seconds: String
+	nanos: String
+}
 type Time {
 	opens: Timestamp
 	closes: Timestamp
 	daysOfWeek: DaysOfWeek
 	validFrom: Timestamp
 	validThrough: Timestamp
+}
+
+input TimestampInput {
+	seconds: String
+	nanos: String
 }

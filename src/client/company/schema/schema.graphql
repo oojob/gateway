@@ -29,16 +29,16 @@ input CompanyInput {
 	skills: [String]
 }
 
-extend type Query {
-	ReadCompanies(input: PaginationInput): [Company]!
-	ReadMyCompanies(input: ID!): [Company]!
-	ReadCompany(input: ID): Company
-}
-extend type Mutation {
-	CreateCompany(input: CompanyInput!): Id!
-	UpdateCompany(input: CompanyInput!): Id!
-	DeleteCompany(input: ID!): Id!
-}
-extend type Subscription {
-	CompanyCreated: Id!
-}
+# extend type Query {
+# 	ReadCompanies(input: PaginationInput): [Company]!
+# 	ReadMyCompanies(input: ID!): [Company]!
+# 	ReadCompany(input: ID): Company
+# }
+# extend type Mutation {
+# 	CreateCompany(input: CompanyInput!): Id!
+# 	UpdateCompany(input: CompanyInput!): Id!
+# 	DeleteCompany(input: ID!): Id!
+# }
+# extend type Subscription {
+# 	CompanyCreated: Id!
+# }

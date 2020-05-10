@@ -1,33 +1,19 @@
-import { Identifier } from '@oojob/oojob-protobuf'
-import { Profile } from '@oojob/protorepo-profile-node/service_pb'
-import { createProfile } from '../../profile/transformer'
+import { PubSub } from 'apollo-server-express'
+
+const Mutation = {
+	dummy: () => 'Dodo Duck'
+}
+const Query = {
+	dummy: () => 'dodo duck lives here'
+}
+const Subscription = {
+	dummy: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => pubsub.asyncIterator('DODO_DUCK')
+}
 
 const rootResolvers = {
-	Query: {
-		dummy: async () => {
-			// do for dodo
-			try {
-				const profile = new Profile()
-				const identifier = new Identifier()
-				identifier.setName('dodo duck')
-				identifier.setIdentifier('UTF1234:)(()')
-				identifier.setAlternateName('dodo duck alternate name')
-				profile.setIdentity(identifier)
-
-				const res = await createProfile(profile)
-				console.log(res)
-			} catch (error) {
-				console.log(error)
-			}
-
-			return 'dodo duck lives here'
-		}
-	},
-	Mutation: {
-		dummy: async () => {
-			return 'Dodo Duck'
-		}
-	},
+	Query,
+	Mutation,
+	Subscription,
 	Result: {
 		__resolveType: (node: any) => {
 			if (node.noOfEmployees) return 'Company'
@@ -38,11 +24,37 @@ const rootResolvers = {
 	INode: {
 		__resolveType: (node: any) => {
 			if (node.noOfEmployees) return 'Company'
-			if (node.stars) return 'Review'
+			// if (node.stars) return 'Review'
 
 			return 'Company'
 		}
 	}
+	// AggregateRating: undefined,
+	// Applicant: undefined,
+	// Attachment: undefined,
+	// Company: undefined,
+	// Date: undefined,
+	// Edge: undefined,
+	// Education: undefined,
+	// Email: undefined,
+	// GeoLocation: undefined,
+	// Id: undefined,
+	// Identifier: undefined,
+	// PageInfo: undefined,
+	// Job: undefined,
+	// JobResultCursor: undefined,
+	// Metadata: undefined,
+	// Pagination: undefined,
+	// Place: undefined,
+	// Profile: undefined,
+	// ProfileSecurity: undefined,
+	// Range: undefined,
+	// Rating: undefined,
+	// Upload: undefined,
+	// Time: undefined,
+	// Timestamp: undefined,
+	// Sallary: undefined,
+	// Review: undefined
 }
 
 export default rootResolvers
