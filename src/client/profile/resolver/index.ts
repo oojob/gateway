@@ -14,14 +14,17 @@ import {
 import { createProfile, validateEmail, validateUsername } from 'client/profile/transformer'
 
 export const Query: QueryResolvers = {
-	ValidateUsername: async (_, { input }) => {
+	ValidateUsername: async (_, { input }, { tracer }) => {
+		const span = tracer.startSpan('client:service-profile:validate-username')
+
+		const res: DefaultResponseSchema = {}
+		// tracer.withSpanAsync(span, async () => {
 		const username = input.username
 		const validateUsernameReq = new ValidateUsernameRequest()
 		if (username) {
 			validateUsernameReq.setUsername(username)
 		}
 
-		const res: DefaultResponseSchema = {}
 		try {
 			const validateRes = (await validateUsername(validateUsernameReq)) as DefaultResponse
 			res.status = validateRes.getStatus()
@@ -32,6 +35,8 @@ export const Query: QueryResolvers = {
 			res.error = message
 			res.code = code
 		}
+		// })
+		span.end()
 
 		return res
 	},

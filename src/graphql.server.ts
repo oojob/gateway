@@ -12,6 +12,7 @@ import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 
 import { ApolloServer, PubSub } from 'apollo-server-express'
 
+import _tracer from 'tracer'
 import { merge } from 'lodash'
 import profileResolvers from 'client/profile/resolver'
 import rootResolvers from 'client/root/resolver'
@@ -31,14 +32,15 @@ export const typeDefs = [
 	jobSchema
 ]
 export const resolvers = merge({}, rootResolvers, profileResolvers)
-
+const tracer = _tracer('service:gateway')
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: async ({ req, connection }) => ({
 		req,
 		connection,
-		pubsub
+		pubsub,
+		tracer
 	}),
 	tracing: true
 })
