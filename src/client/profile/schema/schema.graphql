@@ -73,6 +73,6 @@ input ProfileInput {
 	security: ProfileSecurityInput
 }
 
-# extend type Mutation {
-# 	CreateProfile(input: ProfileInput!): Id!
-# }
+extend type Mutation {
+	CreateProfile(input: ProfileInput!): Id!
+}

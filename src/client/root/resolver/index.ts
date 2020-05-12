@@ -1,16 +1,16 @@
-import { PubSub } from 'apollo-server-express'
+import { MutationResolvers, QueryResolvers, Resolvers, SubscriptionResolvers } from 'generated/graphql'
 
-const Mutation = {
-	dummy: () => 'Dodo Duck'
-}
-const Query = {
+const Query: QueryResolvers = {
 	dummy: () => 'dodo duck lives here'
 }
-const Subscription = {
-	dummy: (_: any, __: any, { pubsub }: { pubsub: PubSub }) => pubsub.asyncIterator('DODO_DUCK')
+const Mutation: MutationResolvers = {
+	dummy: () => 'Dodo Duck'
+}
+const Subscription: SubscriptionResolvers = {
+	dummy: (_, __, { pubsub }) => pubsub.asyncIterator('DODO_DUCK')
 }
 
-const rootResolvers = {
+const rootResolvers: Resolvers = {
 	Query,
 	Mutation,
 	Subscription,
@@ -29,32 +29,6 @@ const rootResolvers = {
 			return 'Company'
 		}
 	}
-	// AggregateRating: undefined,
-	// Applicant: undefined,
-	// Attachment: undefined,
-	// Company: undefined,
-	// Date: undefined,
-	// Edge: undefined,
-	// Education: undefined,
-	// Email: undefined,
-	// GeoLocation: undefined,
-	// Id: undefined,
-	// Identifier: undefined,
-	// PageInfo: undefined,
-	// Job: undefined,
-	// JobResultCursor: undefined,
-	// Metadata: undefined,
-	// Pagination: undefined,
-	// Place: undefined,
-	// Profile: undefined,
-	// ProfileSecurity: undefined,
-	// Range: undefined,
-	// Rating: undefined,
-	// Upload: undefined,
-	// Time: undefined,
-	// Timestamp: undefined,
-	// Sallary: undefined,
-	// Review: undefined
 }
 
 export default rootResolvers
