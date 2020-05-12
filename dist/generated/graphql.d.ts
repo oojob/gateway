@@ -1,4 +1,5 @@
 import { GraphQLResolveInfo, GraphQLScalarType, GraphQLScalarTypeConfig } from 'graphql';
+import { OoJobContext } from 'graphql.server';
 export declare type Maybe<T> = T | null;
 export declare type Omit<T, K extends keyof T> = Pick<T, Exclude<keyof T, K>>;
 export declare type RequireFields<T, K extends keyof T> = {
@@ -607,7 +608,7 @@ export declare type ResolversParentTypes = ResolversObject<{
     CacheControlScope: CacheControlScope;
     Upload: Scalars['Upload'];
 }>;
-export declare type AddressResolvers<ContextType = any, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = ResolversObject<{
+export declare type AddressResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = ResolversObject<{
     country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     locality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     region?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -615,20 +616,20 @@ export declare type AddressResolvers<ContextType = any, ParentType extends Resol
     street?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type AggregateRatingResolvers<ContextType = any, ParentType extends ResolversParentTypes['AggregateRating'] = ResolversParentTypes['AggregateRating']> = ResolversObject<{
+export declare type AggregateRatingResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['AggregateRating'] = ResolversParentTypes['AggregateRating']> = ResolversObject<{
     itemReviewed?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     ratingCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
     reviewCount?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type ApplicantResolvers<ContextType = any, ParentType extends ResolversParentTypes['Applicant'] = ResolversParentTypes['Applicant']> = ResolversObject<{
+export declare type ApplicantResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Applicant'] = ResolversParentTypes['Applicant']> = ResolversObject<{
     applications?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
     shortlisted?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
     onhold?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
     rejected?: Resolver<Array<Maybe<ResolversTypes['String']>>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type AttachmentResolvers<ContextType = any, ParentType extends ResolversParentTypes['Attachment'] = ResolversParentTypes['Attachment']> = ResolversObject<{
+export declare type AttachmentResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Attachment'] = ResolversParentTypes['Attachment']> = ResolversObject<{
     type?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     file?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     uploadDate?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
@@ -637,7 +638,7 @@ export declare type AttachmentResolvers<ContextType = any, ParentType extends Re
     folder?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type CompanyResolvers<ContextType = any, ParentType extends ResolversParentTypes['Company'] = ResolversParentTypes['Company']> = ResolversObject<{
+export declare type CompanyResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Company'] = ResolversParentTypes['Company']> = ResolversObject<{
     id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
     name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     description?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -657,40 +658,40 @@ export declare type CompanyResolvers<ContextType = any, ParentType extends Resol
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
     name: 'Date';
 }
-export declare type DefaultResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DefaultResponse'] = ResolversParentTypes['DefaultResponse']> = ResolversObject<{
+export declare type DefaultResponseResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['DefaultResponse'] = ResolversParentTypes['DefaultResponse']> = ResolversObject<{
     status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     code?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type EdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = ResolversObject<{
+export declare type EdgeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = ResolversObject<{
     cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     node?: Resolver<Array<ResolversTypes['Result']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type EducationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Education'] = ResolversParentTypes['Education']> = ResolversObject<{
+export declare type EducationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Education'] = ResolversParentTypes['Education']> = ResolversObject<{
     education?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     show?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type EmailResolvers<ContextType = any, ParentType extends ResolversParentTypes['Email'] = ResolversParentTypes['Email']> = ResolversObject<{
+export declare type EmailResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Email'] = ResolversParentTypes['Email']> = ResolversObject<{
     email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     status?: Resolver<Maybe<ResolversTypes['EmailStatus']>, ParentType, ContextType>;
     show?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type GeoLocationResolvers<ContextType = any, ParentType extends ResolversParentTypes['GeoLocation'] = ResolversParentTypes['GeoLocation']> = ResolversObject<{
+export declare type GeoLocationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['GeoLocation'] = ResolversParentTypes['GeoLocation']> = ResolversObject<{
     elevation?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     latitude?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     longitude?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     postalCode?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type IdResolvers<ContextType = any, ParentType extends ResolversParentTypes['Id'] = ResolversParentTypes['Id']> = ResolversObject<{
+export declare type IdResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Id'] = ResolversParentTypes['Id']> = ResolversObject<{
     id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type IdentifierResolvers<ContextType = any, ParentType extends ResolversParentTypes['Identifier'] = ResolversParentTypes['Identifier']> = ResolversObject<{
+export declare type IdentifierResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Identifier'] = ResolversParentTypes['Identifier']> = ResolversObject<{
     identifier?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     name?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     alternateName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -702,13 +703,13 @@ export declare type IdentifierResolvers<ContextType = any, ParentType extends Re
     slogan?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type INodeResolvers<ContextType = any, ParentType extends ResolversParentTypes['INode'] = ResolversParentTypes['INode']> = ResolversObject<{
+export declare type INodeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['INode'] = ResolversParentTypes['INode']> = ResolversObject<{
     __resolveType: TypeResolveFn<'Job' | 'Company', ParentType, ContextType>;
     id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
     createdAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
     updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
 }>;
-export declare type JobResolvers<ContextType = any, ParentType extends ResolversParentTypes['Job'] = ResolversParentTypes['Job']> = ResolversObject<{
+export declare type JobResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Job'] = ResolversParentTypes['Job']> = ResolversObject<{
     id?: Resolver<ResolversTypes['ID'], ParentType, ContextType>;
     name?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     type?: Resolver<ResolversTypes['JobType'], ParentType, ContextType>;
@@ -727,18 +728,18 @@ export declare type JobResolvers<ContextType = any, ParentType extends Resolvers
     updatedAt?: Resolver<ResolversTypes['Timestamp'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type JobResultCursorResolvers<ContextType = any, ParentType extends ResolversParentTypes['JobResultCursor'] = ResolversParentTypes['JobResultCursor']> = ResolversObject<{
+export declare type JobResultCursorResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['JobResultCursor'] = ResolversParentTypes['JobResultCursor']> = ResolversObject<{
     edges?: Resolver<ResolversTypes['Edge'], ParentType, ContextType>;
     pageInfo?: Resolver<ResolversTypes['PageInfo'], ParentType, ContextType>;
     totalCount?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type MapProfilePermissionResolvers<ContextType = any, ParentType extends ResolversParentTypes['MapProfilePermission'] = ResolversParentTypes['MapProfilePermission']> = ResolversObject<{
+export declare type MapProfilePermissionResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['MapProfilePermission'] = ResolversParentTypes['MapProfilePermission']> = ResolversObject<{
     key?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     profileOperations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProfileOperationOptions']>>>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type MetadataResolvers<ContextType = any, ParentType extends ResolversParentTypes['Metadata'] = ResolversParentTypes['Metadata']> = ResolversObject<{
+export declare type MetadataResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Metadata'] = ResolversParentTypes['Metadata']> = ResolversObject<{
     created_at?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     updated_at?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     published_date?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
@@ -746,16 +747,16 @@ export declare type MetadataResolvers<ContextType = any, ParentType extends Reso
     last_active?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
+export declare type MutationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     CreateProfile?: Resolver<ResolversTypes['Id'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
 }>;
-export declare type PageInfoResolvers<ContextType = any, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
+export declare type PageInfoResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
     endCursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     hasNextPage?: Resolver<ResolversTypes['Boolean'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type PaginationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Pagination'] = ResolversParentTypes['Pagination']> = ResolversObject<{
+export declare type PaginationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Pagination'] = ResolversParentTypes['Pagination']> = ResolversObject<{
     page?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     first?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     after?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -767,11 +768,11 @@ export declare type PaginationResolvers<ContextType = any, ParentType extends Re
     identifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type PermissionsBaseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PermissionsBase'] = ResolversParentTypes['PermissionsBase']> = ResolversObject<{
+export declare type PermissionsBaseResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['PermissionsBase'] = ResolversParentTypes['PermissionsBase']> = ResolversObject<{
     permissions?: Resolver<Maybe<ResolversTypes['MapProfilePermission']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type PlaceResolvers<ContextType = any, ParentType extends ResolversParentTypes['Place'] = ResolversParentTypes['Place']> = ResolversObject<{
+export declare type PlaceResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Place'] = ResolversParentTypes['Place']> = ResolversObject<{
     address?: Resolver<Maybe<ResolversTypes['Address']>, ParentType, ContextType>;
     review?: Resolver<Maybe<ResolversTypes['Review']>, ParentType, ContextType>;
     aggregateRating?: Resolver<Maybe<ResolversTypes['AggregateRating']>, ParentType, ContextType>;
@@ -779,7 +780,7 @@ export declare type PlaceResolvers<ContextType = any, ParentType extends Resolve
     geo?: Resolver<Maybe<ResolversTypes['GeoLocation']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type ProfileResolvers<ContextType = any, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
+export declare type ProfileResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Profile'] = ResolversParentTypes['Profile']> = ResolversObject<{
     identity?: Resolver<Maybe<ResolversTypes['Identifier']>, ParentType, ContextType>;
     givenName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     middleName?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -795,7 +796,7 @@ export declare type ProfileResolvers<ContextType = any, ParentType extends Resol
     metadata?: Resolver<Maybe<ResolversTypes['Metadata']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type ProfileSecurityResolvers<ContextType = any, ParentType extends ResolversParentTypes['ProfileSecurity'] = ResolversParentTypes['ProfileSecurity']> = ResolversObject<{
+export declare type ProfileSecurityResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['ProfileSecurity'] = ResolversParentTypes['ProfileSecurity']> = ResolversObject<{
     password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     passwordSalt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     passwordHash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -805,17 +806,17 @@ export declare type ProfileSecurityResolvers<ContextType = any, ParentType exten
     verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
+export declare type QueryResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     ValidateUsername?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateUsernameArgs, 'input'>>;
     ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>;
 }>;
-export declare type RangeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
+export declare type RangeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
     min?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
     max?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type RatingResolvers<ContextType = any, ParentType extends ResolversParentTypes['Rating'] = ResolversParentTypes['Rating']> = ResolversObject<{
+export declare type RatingResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Rating'] = ResolversParentTypes['Rating']> = ResolversObject<{
     author?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     bestRating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     explanation?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -823,25 +824,25 @@ export declare type RatingResolvers<ContextType = any, ParentType extends Resolv
     worstRating?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type ResultResolvers<ContextType = any, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = ResolversObject<{
+export declare type ResultResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Result'] = ResolversParentTypes['Result']> = ResolversObject<{
     __resolveType: TypeResolveFn<'Job' | 'Company', ParentType, ContextType>;
 }>;
-export declare type ReviewResolvers<ContextType = any, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = ResolversObject<{
+export declare type ReviewResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Review'] = ResolversParentTypes['Review']> = ResolversObject<{
     itemReviewed?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     aspect?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     body?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     rating?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type SallaryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Sallary'] = ResolversParentTypes['Sallary']> = ResolversObject<{
+export declare type SallaryResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Sallary'] = ResolversParentTypes['Sallary']> = ResolversObject<{
     value?: Resolver<ResolversTypes['Float'], ParentType, ContextType>;
     currency?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
-    dummy?: SubscriptionResolver<ResolversTypes['String'], "dummy", ParentType, ContextType>;
+export declare type SubscriptionResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = ResolversObject<{
+    dummy?: SubscriptionResolver<ResolversTypes['String'], 'dummy', ParentType, ContextType>;
 }>;
-export declare type TimeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Time'] = ResolversParentTypes['Time']> = ResolversObject<{
+export declare type TimeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Time'] = ResolversParentTypes['Time']> = ResolversObject<{
     opens?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     closes?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     daysOfWeek?: Resolver<Maybe<ResolversTypes['DaysOfWeek']>, ParentType, ContextType>;
@@ -849,7 +850,7 @@ export declare type TimeResolvers<ContextType = any, ParentType extends Resolver
     validThrough?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
-export declare type TimestampResolvers<ContextType = any, ParentType extends ResolversParentTypes['Timestamp'] = ResolversParentTypes['Timestamp']> = ResolversObject<{
+export declare type TimestampResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Timestamp'] = ResolversParentTypes['Timestamp']> = ResolversObject<{
     seconds?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     nanos?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
@@ -857,7 +858,7 @@ export declare type TimestampResolvers<ContextType = any, ParentType extends Res
 export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Upload'], any> {
     name: 'Upload';
 }
-export declare type Resolvers<ContextType = any> = ResolversObject<{
+export declare type Resolvers<ContextType = OoJobContext> = ResolversObject<{
     Address?: AddressResolvers<ContextType>;
     AggregateRating?: AggregateRatingResolvers<ContextType>;
     Applicant?: ApplicantResolvers<ContextType>;
@@ -894,4 +895,4 @@ export declare type Resolvers<ContextType = any> = ResolversObject<{
     Timestamp?: TimestampResolvers<ContextType>;
     Upload?: GraphQLScalarType;
 }>;
-export declare type IResolvers<ContextType = any> = Resolvers<ContextType>;
+export declare type IResolvers<ContextType = OoJobContext> = Resolvers<ContextType>;

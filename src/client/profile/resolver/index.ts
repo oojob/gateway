@@ -30,13 +30,14 @@ export const Query: QueryResolvers = {
 			res.status = validateRes.getStatus()
 			res.code = validateRes.getCode()
 			res.error = validateRes.getError()
+			span.end()
 		} catch ({ message, code }) {
 			res.status = false
 			res.error = message
 			res.code = code
+			span.end()
 		}
 		// })
-		span.end()
 
 		return res
 	},

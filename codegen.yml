@@ -3,12 +3,16 @@ schema: "http://localhost:8000/graphql"
 documents: null
 generates:
   src/generated/graphql.ts:
+    hooks:
+      afterOneFileWrite:
+        - prettier --write
     plugins:
       - "typescript"
       - "typescript-resolvers"
       - "typescript-document-nodes"
     config:
       useIndexSignature: true
+      contextType: graphql.server#OoJobContext
   ./graphql.schema.json:
     plugins:
       - "introspection"
