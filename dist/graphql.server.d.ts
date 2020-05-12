@@ -1,7 +1,7 @@
 import { ApolloServer, PubSub } from 'apollo-server-express';
 export declare const pubsub: PubSub;
 export declare const typeDefs: import("graphql").DocumentNode[];
-export declare const resolvers: import("./generated/graphql").WithIndex<{
+export declare const resolvers: {
     Address?: import("./generated/graphql").WithIndex<{
         country?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Address, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Address, any, {}> | undefined;
         locality?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Address, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Address, any, {}> | undefined;
@@ -50,6 +50,12 @@ export declare const resolvers: import("./generated/graphql").WithIndex<{
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Company> | undefined;
     }> | undefined;
     Date?: import("graphql").GraphQLScalarType | undefined;
+    DefaultResponse?: import("./generated/graphql").WithIndex<{
+        status?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<boolean>>, import("./generated/graphql").DefaultResponse, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<boolean>>, import("./generated/graphql").DefaultResponse, any, {}> | undefined;
+        error?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").DefaultResponse, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").DefaultResponse, any, {}> | undefined;
+        code?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<number>>, import("./generated/graphql").DefaultResponse, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<number>>, import("./generated/graphql").DefaultResponse, any, {}> | undefined;
+        __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").DefaultResponse> | undefined;
+    }> | undefined;
     Edge?: import("./generated/graphql").WithIndex<{
         cursor?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
             node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
@@ -134,6 +140,11 @@ export declare const resolvers: import("./generated/graphql").WithIndex<{
         totalCount?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").JobResultCursor, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").JobResultCursor, any, {}> | undefined;
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").JobResultCursor> | undefined;
     }> | undefined;
+    MapProfilePermission?: import("./generated/graphql").WithIndex<{
+        key?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").MapProfilePermission, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").MapProfilePermission, any, {}> | undefined;
+        profileOperations?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").Maybe<import("./generated/graphql").ProfileOperationOptions>[]>, import("./generated/graphql").MapProfilePermission, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").Maybe<import("./generated/graphql").ProfileOperationOptions>[]>, import("./generated/graphql").MapProfilePermission, any, {}> | undefined;
+        __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").MapProfilePermission> | undefined;
+    }> | undefined;
     Metadata?: import("./generated/graphql").WithIndex<{
         created_at?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Metadata, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Metadata, any, {}> | undefined;
         updated_at?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Metadata, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Metadata, any, {}> | undefined;
@@ -162,6 +173,10 @@ export declare const resolvers: import("./generated/graphql").WithIndex<{
         next?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Pagination, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Pagination, any, {}> | undefined;
         identifier?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Pagination, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Pagination, any, {}> | undefined;
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Pagination> | undefined;
+    }> | undefined;
+    PermissionsBase?: import("./generated/graphql").WithIndex<{
+        permissions?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").MapProfilePermission>>, import("./generated/graphql").PermissionsBase, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").MapProfilePermission>>, import("./generated/graphql").PermissionsBase, any, {}> | undefined;
+        __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").PermissionsBase> | undefined;
     }> | undefined;
     Place?: import("./generated/graphql").WithIndex<{
         address?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Address>>, import("./generated/graphql").Place, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Address>>, import("./generated/graphql").Place, any, {}> | undefined;
@@ -199,6 +214,8 @@ export declare const resolvers: import("./generated/graphql").WithIndex<{
     }> | undefined;
     Query?: import("./generated/graphql").WithIndex<{
         dummy?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | undefined;
+        ValidateUsername?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | undefined;
+        ValidateEmail?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | undefined;
     }> | undefined;
     Range?: import("./generated/graphql").WithIndex<{
         min?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").Range, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").Range, any, {}> | undefined;
@@ -245,6 +262,16 @@ export declare const resolvers: import("./generated/graphql").WithIndex<{
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Timestamp> | undefined;
     }> | undefined;
     Upload?: import("graphql").GraphQLScalarType | undefined;
-}>;
+} & Record<string, any> & {
+    Mutation: import("./generated/graphql").WithIndex<{
+        dummy?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | undefined;
+        CreateProfile?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Id>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").MutationCreateProfileArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Id>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").MutationCreateProfileArgs, "input">> | undefined;
+    }>;
+    Query: import("./generated/graphql").WithIndex<{
+        dummy?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, {}, any, {}> | undefined;
+        ValidateUsername?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | undefined;
+        ValidateEmail?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, any, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | undefined;
+    }>;
+};
 declare const server: ApolloServer;
 export default server;

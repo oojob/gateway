@@ -138,6 +138,13 @@ export enum DaysOfWeek {
   Sunday = 'SUNDAY'
 }
 
+export type DefaultResponse = {
+   __typename?: 'DefaultResponse';
+  status?: Maybe<Scalars['Boolean']>;
+  error?: Maybe<Scalars['String']>;
+  code?: Maybe<Scalars['Int']>;
+};
+
 export type Edge = {
    __typename?: 'Edge';
   cursor: Scalars['String'];
@@ -260,6 +267,12 @@ export enum JobType {
   Premium = 'PREMIUM'
 }
 
+export type MapProfilePermission = {
+   __typename?: 'MapProfilePermission';
+  key?: Maybe<Scalars['String']>;
+  profileOperations?: Maybe<Array<Maybe<ProfileOperationOptions>>>;
+};
+
 export type Metadata = {
    __typename?: 'Metadata';
   created_at?: Maybe<Timestamp>;
@@ -316,6 +329,11 @@ export type PaginationInput = {
   next?: Maybe<Scalars['String']>;
 };
 
+export type PermissionsBase = {
+   __typename?: 'PermissionsBase';
+  permissions?: Maybe<MapProfilePermission>;
+};
+
 export type Place = {
    __typename?: 'Place';
   address?: Maybe<Address>;
@@ -357,6 +375,14 @@ export type ProfileInput = {
   security?: Maybe<ProfileSecurityInput>;
 };
 
+export enum ProfileOperationOptions {
+  Create = 'CREATE',
+  Read = 'READ',
+  Update = 'UPDATE',
+  Delete = 'DELETE',
+  BulkUpdate = 'BULK_UPDATE'
+}
+
 export enum ProfileOperations {
   Create = 'CREATE',
   Read = 'READ',
@@ -384,6 +410,18 @@ export type ProfileSecurityInput = {
 export type Query = {
    __typename?: 'Query';
   dummy: Scalars['String'];
+  ValidateUsername: DefaultResponse;
+  ValidateEmail: DefaultResponse;
+};
+
+
+export type QueryValidateUsernameArgs = {
+  input: ValidateUsernameInput;
+};
+
+
+export type QueryValidateEmailArgs = {
+  input: ValidateEmailInput;
 };
 
 export type Range = {
@@ -457,6 +495,14 @@ export type TimestampInput = {
   nanos?: Maybe<Scalars['String']>;
 };
 
+
+export type ValidateEmailInput = {
+  email?: Maybe<Scalars['String']>;
+};
+
+export type ValidateUsernameInput = {
+  username?: Maybe<Scalars['String']>;
+};
 
 export type WithIndex<TObject> = TObject & Record<string, any>;
 export type ResolversObject<TObject> = WithIndex<TObject>;
@@ -534,16 +580,19 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 export type ResolversTypes = ResolversObject<{
   Query: ResolverTypeWrapper<{}>,
   String: ResolverTypeWrapper<Scalars['String']>,
+  ValidateUsernameInput: ValidateUsernameInput,
+  DefaultResponse: ResolverTypeWrapper<DefaultResponse>,
+  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
+  Int: ResolverTypeWrapper<Scalars['Int']>,
+  ValidateEmailInput: ValidateEmailInput,
   Mutation: ResolverTypeWrapper<{}>,
   ProfileInput: ProfileInput,
   IdentifierInput: IdentifierInput,
   EmailInput: EmailInput,
-  Boolean: ResolverTypeWrapper<Scalars['Boolean']>,
   Gender: Gender,
   TimestampInput: TimestampInput,
   EducationInput: EducationInput,
   AddressInput: AddressInput,
-  Int: ResolverTypeWrapper<Scalars['Int']>,
   ProfileSecurityInput: ProfileSecurityInput,
   AccountType: AccountType,
   Id: ResolverTypeWrapper<Id>,
@@ -578,6 +627,9 @@ export type ResolversTypes = ResolversObject<{
   RangeInput: RangeInput,
   IdInput: IdInput,
   AttachmentInput: AttachmentInput,
+  ProfileOperationOptions: ProfileOperationOptions,
+  MapProfilePermission: ResolverTypeWrapper<MapProfilePermission>,
+  PermissionsBase: ResolverTypeWrapper<PermissionsBase>,
   DaysOfWeek: DaysOfWeek,
   Time: ResolverTypeWrapper<Time>,
   ProfileOperations: ProfileOperations,
@@ -599,16 +651,19 @@ export type ResolversTypes = ResolversObject<{
 export type ResolversParentTypes = ResolversObject<{
   Query: {},
   String: Scalars['String'],
+  ValidateUsernameInput: ValidateUsernameInput,
+  DefaultResponse: DefaultResponse,
+  Boolean: Scalars['Boolean'],
+  Int: Scalars['Int'],
+  ValidateEmailInput: ValidateEmailInput,
   Mutation: {},
   ProfileInput: ProfileInput,
   IdentifierInput: IdentifierInput,
   EmailInput: EmailInput,
-  Boolean: Scalars['Boolean'],
   Gender: Gender,
   TimestampInput: TimestampInput,
   EducationInput: EducationInput,
   AddressInput: AddressInput,
-  Int: Scalars['Int'],
   ProfileSecurityInput: ProfileSecurityInput,
   AccountType: AccountType,
   Id: Id,
@@ -643,6 +698,9 @@ export type ResolversParentTypes = ResolversObject<{
   RangeInput: RangeInput,
   IdInput: IdInput,
   AttachmentInput: AttachmentInput,
+  ProfileOperationOptions: ProfileOperationOptions,
+  MapProfilePermission: MapProfilePermission,
+  PermissionsBase: PermissionsBase,
   DaysOfWeek: DaysOfWeek,
   Time: Time,
   ProfileOperations: ProfileOperations,
@@ -715,6 +773,13 @@ export type CompanyResolvers<ContextType = any, ParentType extends ResolversPare
 export interface DateScalarConfig extends GraphQLScalarTypeConfig<ResolversTypes['Date'], any> {
   name: 'Date'
 }
+
+export type DefaultResponseResolvers<ContextType = any, ParentType extends ResolversParentTypes['DefaultResponse'] = ResolversParentTypes['DefaultResponse']> = ResolversObject<{
+  status?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>,
+  error?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  code?: Resolver<Maybe<ResolversTypes['Int']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+}>;
 
 export type EdgeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Edge'] = ResolversParentTypes['Edge']> = ResolversObject<{
   cursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
@@ -795,6 +860,12 @@ export type JobResultCursorResolvers<ContextType = any, ParentType extends Resol
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 }>;
 
+export type MapProfilePermissionResolvers<ContextType = any, ParentType extends ResolversParentTypes['MapProfilePermission'] = ResolversParentTypes['MapProfilePermission']> = ResolversObject<{
+  key?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  profileOperations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProfileOperationOptions']>>>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+}>;
+
 export type MetadataResolvers<ContextType = any, ParentType extends ResolversParentTypes['Metadata'] = ResolversParentTypes['Metadata']> = ResolversObject<{
   created_at?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>,
   updated_at?: Resolver<Maybe<ResolversTypes['Timestamp']>, ParentType, ContextType>,
@@ -825,6 +896,11 @@ export type PaginationResolvers<ContextType = any, ParentType extends ResolversP
   previous?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   next?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
   identifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>,
+  __isTypeOf?: isTypeOfResolverFn<ParentType>,
+}>;
+
+export type PermissionsBaseResolvers<ContextType = any, ParentType extends ResolversParentTypes['PermissionsBase'] = ResolversParentTypes['PermissionsBase']> = ResolversObject<{
+  permissions?: Resolver<Maybe<ResolversTypes['MapProfilePermission']>, ParentType, ContextType>,
   __isTypeOf?: isTypeOfResolverFn<ParentType>,
 }>;
 
@@ -867,6 +943,8 @@ export type ProfileSecurityResolvers<ContextType = any, ParentType extends Resol
 
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = ResolversObject<{
   dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>,
+  ValidateUsername?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateUsernameArgs, 'input'>>,
+  ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>,
 }>;
 
 export type RangeResolvers<ContextType = any, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
@@ -932,6 +1010,7 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   Attachment?: AttachmentResolvers<ContextType>,
   Company?: CompanyResolvers<ContextType>,
   Date?: GraphQLScalarType,
+  DefaultResponse?: DefaultResponseResolvers<ContextType>,
   Edge?: EdgeResolvers<ContextType>,
   Education?: EducationResolvers<ContextType>,
   Email?: EmailResolvers<ContextType>,
@@ -941,10 +1020,12 @@ export type Resolvers<ContextType = any> = ResolversObject<{
   INode?: INodeResolvers,
   Job?: JobResolvers<ContextType>,
   JobResultCursor?: JobResultCursorResolvers<ContextType>,
+  MapProfilePermission?: MapProfilePermissionResolvers<ContextType>,
   Metadata?: MetadataResolvers<ContextType>,
   Mutation?: MutationResolvers<ContextType>,
   PageInfo?: PageInfoResolvers<ContextType>,
   Pagination?: PaginationResolvers<ContextType>,
+  PermissionsBase?: PermissionsBaseResolvers<ContextType>,
   Place?: PlaceResolvers<ContextType>,
   Profile?: ProfileResolvers<ContextType>,
   ProfileSecurity?: ProfileSecurityResolvers<ContextType>,

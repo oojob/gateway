@@ -7,5 +7,5 @@ export const readProfile = promisify(profileClient.readProfile).bind(profileClie
 export const updateProfile = promisify(profileClient.updateProfile).bind(profileClient)
 export const validateUsername = promisify(profileClient.validateUsername).bind(profileClient)
 export const validateEmail = promisify(profileClient.validateEmail).bind(profileClient)
-export const check = promisify(profileClient.check).bind(profileClient)
-export const watch = promisify(profileClient.watch).bind(profileClient)
+// export const check = promisify(profileClient.check).bind(profileClient)
+// export const watch = promisify(profileClient.watch).bind(profileClient)

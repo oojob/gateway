@@ -73,6 +73,16 @@ input ProfileInput {
 	security: ProfileSecurityInput
 }
 
+input ValidateUsernameInput {
+	username: String
+}
+input ValidateEmailInput {
+	email: String
+}
+extend type Query {
+	ValidateUsername(input: ValidateUsernameInput!): DefaultResponse!
+	ValidateEmail(input: ValidateEmailInput!): DefaultResponse!
+}
 extend type Mutation {
 	CreateProfile(input: ProfileInput!): Id!
 }

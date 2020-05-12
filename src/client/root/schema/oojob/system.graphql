@@ -2,6 +2,11 @@ type Range {
 	min: Int!
 	max: Int!
 }
+type DefaultResponse {
+	status: Boolean
+	error: String
+	code: Int
+}
 type Id {
 	id: ID!
 }

@@ -3,6 +3,7 @@ import * as companySchema from 'client/company/schema/schema.graphql'
 import * as cursorSchema from 'client/root/schema/oojob/cursor.graphql'
 import * as jobSchema from 'client/job/schema/schema.graphql'
 import * as metadataSchema from 'client/root/schema/oojob/metadata.graphql'
+import * as permissionsSchema from 'client/root/schema/oojob/permissions.graphql'
 import * as placeSchema from 'client/root/schema/oojob/place.graphql'
 import * as profileSchema from 'client/profile/schema/schema.graphql'
 import * as rootSchema from 'client/root/schema/schema.graphql'
@@ -12,6 +13,7 @@ import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 
 import { merge } from 'lodash'
+import profileResolvers from 'client/profile/resolver'
 import rootResolvers from 'client/root/resolver'
 
 export const pubsub = new PubSub()
@@ -22,12 +24,13 @@ export const typeDefs = [
 	metadataSchema,
 	placeSchema,
 	systemSchema,
+	permissionsSchema,
 	timeSchema,
 	profileSchema,
 	companySchema,
 	jobSchema
 ]
-export const resolvers = merge({}, rootResolvers)
+export const resolvers = merge({}, rootResolvers, profileResolvers)
 
 const server = new ApolloServer({
 	typeDefs,

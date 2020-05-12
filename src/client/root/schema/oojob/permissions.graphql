@@ -1,0 +1,16 @@
+enum ProfileOperationOptions {
+	CREATE
+	READ
+	UPDATE
+	DELETE
+	BULK_UPDATE
+}
+
+type MapProfilePermission {
+	key: String
+	profileOperations: [ProfileOperationOptions]
+}
+
+type PermissionsBase {
+	permissions: MapProfilePermission
+}

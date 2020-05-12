@@ -66,9 +66,9 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@oojob/oojob-protobuf": "0.0.2",
+    "@oojob/oojob-protobuf": "0.0.5",
     "@oojob/protorepo-company-node": "0.0.10",
-    "@oojob/protorepo-profile-node": "0.0.2",
+    "@oojob/protorepo-profile-node": "0.0.4",
     "apollo-server-express": "^2.11.0",
     "body-parser": "^1.19.0",
     "compression": "^1.7.4",
