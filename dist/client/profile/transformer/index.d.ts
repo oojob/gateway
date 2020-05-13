@@ -4,3 +4,4 @@ export declare const readProfile: (arg1: import("@oojob/protorepo-profile-node/s
 export declare const updateProfile: (arg1: import("@oojob/protorepo-profile-node/service_pb").Profile) => Promise<unknown>;
 export declare const validateUsername: (arg1: import("@oojob/protorepo-profile-node/service_pb").ValidateUsernameRequest) => Promise<unknown>;
 export declare const validateEmail: (arg1: import("@oojob/protorepo-profile-node/service_pb").ValidateEmailRequest) => Promise<unknown>;
+export declare const auth: (arg1: import("@oojob/protorepo-profile-node/service_pb").AuthRequest) => Promise<unknown>;

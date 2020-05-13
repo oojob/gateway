@@ -1,17 +1,20 @@
-import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
 import {
-	DefaultResponse as DefaultResponseSchema,
-	Id as IdSchema,
-	MutationResolvers,
-	QueryResolvers
-} from 'generated/graphql'
-import {
+	AuthRequest,
+	AuthResponse,
 	Profile,
 	ProfileSecurity,
 	ValidateEmailRequest,
 	ValidateUsernameRequest
 } from '@oojob/protorepo-profile-node/service_pb'
-import { createProfile, validateEmail, validateUsername } from 'client/profile/transformer'
+import {
+	AuthResponse as AuthResponseSchema,
+	DefaultResponse as DefaultResponseSchema,
+	Id as IdSchema,
+	MutationResolvers,
+	QueryResolvers
+} from 'generated/graphql'
+import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
+import { auth, createProfile, validateEmail, validateUsername } from 'client/profile/transformer'
 
 export const Query: QueryResolvers = {
 	ValidateUsername: async (_, { input }, { tracer }) => {
@@ -65,6 +68,27 @@ export const Query: QueryResolvers = {
 }
 
 export const Mutation: MutationResolvers = {
+	Auth: async (_, { input }) => {
+		const authRequest = new AuthRequest()
+		if (input?.username) {
+			authRequest.setUsername(input.username)
+		}
+		if (input?.password) {
+			authRequest.setPassword(input.password)
+		}
+
+		const res: AuthResponseSchema = {}
+		try {
+			const tokenResponse = (await auth(authRequest)) as AuthResponse
+			res.token = tokenResponse.getToken()
+			res.valid = tokenResponse.getValid()
+		} catch (error) {
+			res.token = ''
+			res.valid = false
+		}
+
+		return res
+	},
 	CreateProfile: async (_, { input }) => {
 		const middleName = input.middleName ? ` ${input.middleName.trim()}` : ''
 		const familyName = input.familyName ? ` ${input.familyName.trim()}` : ''

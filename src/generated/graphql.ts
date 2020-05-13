@@ -73,6 +73,17 @@ export type AttachmentInput = {
 	folder?: Maybe<Scalars['String']>
 }
 
+export type AuthRequestInput = {
+	username?: Maybe<Scalars['String']>
+	password?: Maybe<Scalars['String']>
+}
+
+export type AuthResponse = {
+	__typename?: 'AuthResponse'
+	token?: Maybe<Scalars['String']>
+	valid?: Maybe<Scalars['Boolean']>
+}
+
 export enum CacheControlScope {
 	Public = 'PUBLIC',
 	Private = 'PRIVATE'
@@ -287,10 +298,15 @@ export type Mutation = {
 	__typename?: 'Mutation'
 	dummy: Scalars['String']
 	CreateProfile: Id
+	Auth?: Maybe<AuthResponse>
 }
 
 export type MutationCreateProfileArgs = {
 	input: ProfileInput
+}
+
+export type MutationAuthArgs = {
+	input?: Maybe<AuthRequestInput>
 }
 
 export enum OperationEntity {
@@ -593,6 +609,8 @@ export type ResolversTypes = ResolversObject<{
 	AccountType: AccountType
 	Id: ResolverTypeWrapper<Id>
 	ID: ResolverTypeWrapper<Scalars['ID']>
+	AuthRequestInput: AuthRequestInput
+	AuthResponse: ResolverTypeWrapper<AuthResponse>
 	Subscription: ResolverTypeWrapper<{}>
 	Date: ResolverTypeWrapper<Scalars['Date']>
 	Edge: ResolverTypeWrapper<Omit<Edge, 'node'> & { node: Array<ResolversTypes['Result']> }>
@@ -664,6 +682,8 @@ export type ResolversParentTypes = ResolversObject<{
 	AccountType: AccountType
 	Id: Id
 	ID: Scalars['ID']
+	AuthRequestInput: AuthRequestInput
+	AuthResponse: AuthResponse
 	Subscription: {}
 	Date: Scalars['Date']
 	Edge: Omit<Edge, 'node'> & { node: Array<ResolversParentTypes['Result']> }
@@ -757,6 +777,15 @@ export type AttachmentResolvers<
 	url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
 	user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
 	folder?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type AuthResponseResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']
+> = ResolversObject<{
+	token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	valid?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
 	__isTypeOf?: isTypeOfResolverFn<ParentType>
 }>
 
@@ -932,6 +961,12 @@ export type MutationResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<MutationCreateProfileArgs, 'input'>
+	>
+	Auth?: Resolver<
+		Maybe<ResolversTypes['AuthResponse']>,
+		ParentType,
+		ContextType,
+		RequireFields<MutationAuthArgs, never>
 	>
 }>
 
@@ -1118,6 +1153,7 @@ export type Resolvers<ContextType = OoJobContext> = ResolversObject<{
 	AggregateRating?: AggregateRatingResolvers<ContextType>
 	Applicant?: ApplicantResolvers<ContextType>
 	Attachment?: AttachmentResolvers<ContextType>
+	AuthResponse?: AuthResponseResolvers<ContextType>
 	Company?: CompanyResolvers<ContextType>
 	Date?: GraphQLScalarType
 	DefaultResponse?: DefaultResponseResolvers<ContextType>

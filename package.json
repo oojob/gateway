@@ -68,7 +68,7 @@
   "dependencies": {
     "@oojob/oojob-protobuf": "0.0.5",
     "@oojob/protorepo-company-node": "0.0.10",
-    "@oojob/protorepo-profile-node": "0.0.4",
+    "@oojob/protorepo-profile-node": "0.0.6",
     "@opentelemetry/core": "^0.8.0",
     "@opentelemetry/exporter-jaeger": "^0.8.0",
     "@opentelemetry/exporter-prometheus": "^0.8.0",

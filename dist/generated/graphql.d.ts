@@ -65,6 +65,15 @@ export declare type AttachmentInput = {
     user?: Maybe<Scalars['String']>;
     folder?: Maybe<Scalars['String']>;
 };
+export declare type AuthRequestInput = {
+    username?: Maybe<Scalars['String']>;
+    password?: Maybe<Scalars['String']>;
+};
+export declare type AuthResponse = {
+    __typename?: 'AuthResponse';
+    token?: Maybe<Scalars['String']>;
+    valid?: Maybe<Scalars['Boolean']>;
+};
 export declare enum CacheControlScope {
     Public = "PUBLIC",
     Private = "PRIVATE"
@@ -254,9 +263,13 @@ export declare type Mutation = {
     __typename?: 'Mutation';
     dummy: Scalars['String'];
     CreateProfile: Id;
+    Auth?: Maybe<AuthResponse>;
 };
 export declare type MutationCreateProfileArgs = {
     input: ProfileInput;
+};
+export declare type MutationAuthArgs = {
+    input?: Maybe<AuthRequestInput>;
 };
 export declare enum OperationEntity {
     Company = "COMPANY",
@@ -486,6 +499,8 @@ export declare type ResolversTypes = ResolversObject<{
     AccountType: AccountType;
     Id: ResolverTypeWrapper<Id>;
     ID: ResolverTypeWrapper<Scalars['ID']>;
+    AuthRequestInput: AuthRequestInput;
+    AuthResponse: ResolverTypeWrapper<AuthResponse>;
     Subscription: ResolverTypeWrapper<{}>;
     Date: ResolverTypeWrapper<Scalars['Date']>;
     Edge: ResolverTypeWrapper<Omit<Edge, 'node'> & {
@@ -557,6 +572,8 @@ export declare type ResolversParentTypes = ResolversObject<{
     AccountType: AccountType;
     Id: Id;
     ID: Scalars['ID'];
+    AuthRequestInput: AuthRequestInput;
+    AuthResponse: AuthResponse;
     Subscription: {};
     Date: Scalars['Date'];
     Edge: Omit<Edge, 'node'> & {
@@ -636,6 +653,11 @@ export declare type AttachmentResolvers<ContextType = OoJobContext, ParentType e
     url?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     user?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     folder?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
+export declare type AuthResponseResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = ResolversObject<{
+    token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    valid?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 export declare type CompanyResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Company'] = ResolversParentTypes['Company']> = ResolversObject<{
@@ -750,6 +772,7 @@ export declare type MetadataResolvers<ContextType = OoJobContext, ParentType ext
 export declare type MutationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     CreateProfile?: Resolver<ResolversTypes['Id'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
+    Auth?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationAuthArgs, never>>;
 }>;
 export declare type PageInfoResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
     endCursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
@@ -863,6 +886,7 @@ export declare type Resolvers<ContextType = OoJobContext> = ResolversObject<{
     AggregateRating?: AggregateRatingResolvers<ContextType>;
     Applicant?: ApplicantResolvers<ContextType>;
     Attachment?: AttachmentResolvers<ContextType>;
+    AuthResponse?: AuthResponseResolvers<ContextType>;
     Company?: CompanyResolvers<ContextType>;
     Date?: GraphQLScalarType;
     DefaultResponse?: DefaultResponseResolvers<ContextType>;
