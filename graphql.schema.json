@@ -101,13 +101,9 @@
                 "name": "input",
                 "description": null,
                 "type": {
-                  "kind": "NON_NULL",
-                  "name": null,
-                  "ofType": {
-                    "kind": "INPUT_OBJECT",
-                    "name": "TokenRequest",
-                    "ofType": null
-                  }
+                  "kind": "INPUT_OBJECT",
+                  "name": "TokenRequest",
+                  "ofType": null
                 },
                 "defaultValue": null
               }

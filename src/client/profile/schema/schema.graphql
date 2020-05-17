@@ -107,7 +107,7 @@ input TokenRequest {
 extend type Query {
 	ValidateUsername(input: ValidateUsernameInput!): DefaultResponse!
 	ValidateEmail(input: ValidateEmailInput!): DefaultResponse!
-	VerifyToken(input: TokenRequest!): AccessDetailsResponse!
+	VerifyToken(input: TokenRequest): AccessDetailsResponse!
 }
 extend type Mutation {
 	CreateProfile(input: ProfileInput!): Id!

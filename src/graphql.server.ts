@@ -11,11 +11,12 @@ import * as systemSchema from 'client/root/schema/oojob/system.graphql'
 import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 
 import { ApolloServer, PubSub } from 'apollo-server-express'
+import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
+import { AccessDetails } from '@oojob/protorepo-profile-node/service_pb'
 import { Request } from 'express'
 import _tracer from 'tracer'
 import { merge } from 'lodash'
-import profileResolvers from 'client/profile/resolver'
 import rootResolvers from 'client/root/resolver'
 
 export const pubsub = new PubSub()
@@ -38,18 +39,24 @@ export interface OoJobContext {
 	req: Request
 	pubsub: PubSub
 	tracer: typeof tracer
+	token: string
+	accessDetails: AccessDetails
 }
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: async ({ req, connection }) => {
-		const token = req.headers.authorization || ''
+		const tokenData = req.headers.authorization || ''
+		const token = tokenData.split(' ')[1]
+		const accessDetails = await extractTokenMetadata(token)
 
 		return {
 			req,
 			connection,
 			pubsub,
-			tracer
+			tracer,
+			accessDetails,
+			token
 		}
 	},
 	tracing: true

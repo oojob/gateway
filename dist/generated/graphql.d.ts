@@ -400,7 +400,7 @@ export declare type QueryValidateEmailArgs = {
     input: ValidateEmailInput;
 };
 export declare type QueryVerifyTokenArgs = {
-    input: TokenRequest;
+    input?: Maybe<TokenRequest>;
 };
 export declare type Range = {
     __typename?: 'Range';
@@ -872,7 +872,7 @@ export declare type QueryResolvers<ContextType = OoJobContext, ParentType extend
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     ValidateUsername?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateUsernameArgs, 'input'>>;
     ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>;
-    VerifyToken?: Resolver<ResolversTypes['AccessDetailsResponse'], ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, 'input'>>;
+    VerifyToken?: Resolver<ResolversTypes['AccessDetailsResponse'], ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, never>>;
 }>;
 export declare type RangeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
     min?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;

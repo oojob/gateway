@@ -19,6 +19,37 @@ import {
 import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
 import { auth, createProfile, validateEmail, validateUsername, verifyToken } from 'client/profile/transformer'
 
+export const extractTokenMetadata = async (token: string): Promise<AccessDetailsResponseSchema> => {
+	const tokenRequest = new TokenRequest()
+
+	tokenRequest.setToken(token)
+
+	const res: AccessDetailsResponseSchema = {}
+	try {
+		const tokenRes = (await verifyToken(tokenRequest)) as AccessDetails
+		res.verified = tokenRes.getVerified()
+		res.accessUuid = tokenRes.getAccessUuid()
+		res.accountType = tokenRes.getAccountType()
+		res.authorized = tokenRes.getAuthorized()
+		res.email = tokenRes.getEmail()
+		res.identifier = tokenRes.getIdentifier()
+		res.userId = tokenRes.getUserId()
+		res.username = tokenRes.getUsername()
+	} catch (error) {
+		res.verified = false
+		res.accessUuid = null
+		res.accountType = null
+		res.authorized = false
+		res.email = null
+		res.exp = null
+		res.identifier = null
+		res.userId = null
+		res.username = null
+	}
+
+	return res
+}
+
 export const Query: QueryResolvers = {
 	ValidateUsername: async (_, { input }, { tracer }) => {
 		const span = tracer.startSpan('client:service-profile:validate-username')
@@ -70,35 +101,12 @@ export const Query: QueryResolvers = {
 
 		return res
 	},
-	VerifyToken: async (_, { input }) => {
-		const tokenRequest = new TokenRequest()
+	VerifyToken: async (_, { input }, { token: accessToken }) => {
+		let res: AccessDetailsResponseSchema = {}
 
-		const token = input.token
+		const token = (input && input.token) || accessToken
 		if (token) {
-			tokenRequest.setToken(token)
-		}
-
-		const res: AccessDetailsResponseSchema = {}
-		try {
-			const tokenRes = (await verifyToken(tokenRequest)) as AccessDetails
-			res.verified = tokenRes.getVerified()
-			res.accessUuid = tokenRes.getAccessUuid()
-			res.accountType = tokenRes.getAccountType()
-			res.authorized = tokenRes.getAuthorized()
-			res.email = tokenRes.getEmail()
-			res.identifier = tokenRes.getIdentifier()
-			res.userId = tokenRes.getUserId()
-			res.username = tokenRes.getUsername()
-		} catch (error) {
-			res.verified = false
-			res.accessUuid = null
-			res.accountType = null
-			res.authorized = false
-			res.email = ''
-			res.exp = null
-			res.identifier = ''
-			res.userId = null
-			res.username = null
+			res = await extractTokenMetadata(token)
 		}
 
 		return res

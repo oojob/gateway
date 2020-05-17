@@ -1,4 +1,5 @@
 import { ApolloServer, PubSub } from 'apollo-server-express';
+import { AccessDetails } from '@oojob/protorepo-profile-node/service_pb';
 import { Request } from 'express';
 export declare const pubsub: PubSub;
 export declare const typeDefs: import("graphql").DocumentNode[];
@@ -236,7 +237,7 @@ export declare const resolvers: {
         dummy?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | undefined;
         ValidateUsername?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | undefined;
         ValidateEmail?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | undefined;
-        VerifyToken?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, "input">> | undefined;
+        VerifyToken?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, never>> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, never>> | undefined;
     }> | undefined;
     Range?: import("./generated/graphql").WithIndex<{
         min?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").Range, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").Range, OoJobContext, {}> | undefined;
@@ -293,7 +294,7 @@ export declare const resolvers: {
         dummy?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | undefined;
         ValidateUsername?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateUsernameArgs, "input">> | undefined;
         ValidateEmail?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").DefaultResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryValidateEmailArgs, "input">> | undefined;
-        VerifyToken?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, "input">> | undefined;
+        VerifyToken?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, never>> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").AccessDetailsResponse>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryVerifyTokenArgs, never>> | undefined;
     }>;
 };
 declare const tracer: import("@opentelemetry/api").Tracer;
@@ -301,6 +302,8 @@ export interface OoJobContext {
     req: Request;
     pubsub: PubSub;
     tracer: typeof tracer;
+    token: string;
+    accessDetails: AccessDetails;
 }
 declare const server: ApolloServer;
 export default server;

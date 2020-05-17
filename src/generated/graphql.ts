@@ -454,7 +454,7 @@ export type QueryValidateEmailArgs = {
 }
 
 export type QueryVerifyTokenArgs = {
-	input: TokenRequest
+	input?: Maybe<TokenRequest>
 }
 
 export type Range = {
@@ -1116,7 +1116,7 @@ export type QueryResolvers<
 		ResolversTypes['AccessDetailsResponse'],
 		ParentType,
 		ContextType,
-		RequireFields<QueryVerifyTokenArgs, 'input'>
+		RequireFields<QueryVerifyTokenArgs, never>
 	>
 }>
 
