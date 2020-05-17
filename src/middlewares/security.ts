@@ -15,7 +15,7 @@ const security = (app: Application, { enableNonce, enableCSP }: { enableNonce: b
 
 	// do not show powered by express
 	app.set('x-powered-by', false)
-	
+
 	// security helmet package
 	// Don't expose any software information to hackers.
 	app.disable('x-powered-by')

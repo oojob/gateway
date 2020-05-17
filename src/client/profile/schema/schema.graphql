@@ -50,8 +50,20 @@ type Profile {
 	metadata: Metadata
 }
 type AuthResponse {
-	token: String
+	access_token: String
+	refresh_token: String
 	valid: Boolean
+}
+type AccessDetailsResponse {
+	authorized: Boolean
+	accessUuid: String
+	userId: String
+	username: String
+	email: String
+	identifier: String
+	accountType: String
+	verified: Boolean
+	exp: String
 }
 
 input EducationInput {
@@ -86,10 +98,16 @@ input AuthRequestInput {
 	username: String
 	password: String
 }
+input TokenRequest {
+	token: String
+	accessUuid: String
+	userId: String
+}
 
 extend type Query {
 	ValidateUsername(input: ValidateUsernameInput!): DefaultResponse!
 	ValidateEmail(input: ValidateEmailInput!): DefaultResponse!
+	VerifyToken(input: TokenRequest!): AccessDetailsResponse!
 }
 extend type Mutation {
 	CreateProfile(input: ProfileInput!): Id!

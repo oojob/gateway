@@ -42,12 +42,16 @@ export interface OoJobContext {
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
-	context: async ({ req, connection }) => ({
-		req,
-		connection,
-		pubsub,
-		tracer
-	}),
+	context: async ({ req, connection }) => {
+		const token = req.headers.authorization || ''
+
+		return {
+			req,
+			connection,
+			pubsub,
+			tracer
+		}
+	},
 	tracing: true
 })
 

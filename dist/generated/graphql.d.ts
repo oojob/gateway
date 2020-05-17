@@ -16,6 +16,18 @@ export declare type Scalars = {
     Date: any;
     Upload: any;
 };
+export declare type AccessDetailsResponse = {
+    __typename?: 'AccessDetailsResponse';
+    authorized?: Maybe<Scalars['Boolean']>;
+    accessUuid?: Maybe<Scalars['String']>;
+    userId?: Maybe<Scalars['String']>;
+    username?: Maybe<Scalars['String']>;
+    email?: Maybe<Scalars['String']>;
+    identifier?: Maybe<Scalars['String']>;
+    accountType?: Maybe<Scalars['String']>;
+    verified?: Maybe<Scalars['Boolean']>;
+    exp?: Maybe<Scalars['String']>;
+};
 export declare enum AccountType {
     Base = "BASE",
     Company = "COMPANY",
@@ -71,7 +83,8 @@ export declare type AuthRequestInput = {
 };
 export declare type AuthResponse = {
     __typename?: 'AuthResponse';
-    token?: Maybe<Scalars['String']>;
+    access_token?: Maybe<Scalars['String']>;
+    refresh_token?: Maybe<Scalars['String']>;
     valid?: Maybe<Scalars['Boolean']>;
 };
 export declare enum CacheControlScope {
@@ -378,12 +391,16 @@ export declare type Query = {
     dummy: Scalars['String'];
     ValidateUsername: DefaultResponse;
     ValidateEmail: DefaultResponse;
+    VerifyToken: AccessDetailsResponse;
 };
 export declare type QueryValidateUsernameArgs = {
     input: ValidateUsernameInput;
 };
 export declare type QueryValidateEmailArgs = {
     input: ValidateEmailInput;
+};
+export declare type QueryVerifyTokenArgs = {
+    input: TokenRequest;
 };
 export declare type Range = {
     __typename?: 'Range';
@@ -444,6 +461,11 @@ export declare type TimestampInput = {
     seconds?: Maybe<Scalars['String']>;
     nanos?: Maybe<Scalars['String']>;
 };
+export declare type TokenRequest = {
+    token?: Maybe<Scalars['String']>;
+    accessUuid?: Maybe<Scalars['String']>;
+    userId?: Maybe<Scalars['String']>;
+};
 export declare type ValidateEmailInput = {
     email?: Maybe<Scalars['String']>;
 };
@@ -487,6 +509,8 @@ export declare type ResolversTypes = ResolversObject<{
     Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
     Int: ResolverTypeWrapper<Scalars['Int']>;
     ValidateEmailInput: ValidateEmailInput;
+    TokenRequest: TokenRequest;
+    AccessDetailsResponse: ResolverTypeWrapper<AccessDetailsResponse>;
     Mutation: ResolverTypeWrapper<{}>;
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
@@ -560,6 +584,8 @@ export declare type ResolversParentTypes = ResolversObject<{
     Boolean: Scalars['Boolean'];
     Int: Scalars['Int'];
     ValidateEmailInput: ValidateEmailInput;
+    TokenRequest: TokenRequest;
+    AccessDetailsResponse: AccessDetailsResponse;
     Mutation: {};
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
@@ -625,6 +651,18 @@ export declare type ResolversParentTypes = ResolversObject<{
     CacheControlScope: CacheControlScope;
     Upload: Scalars['Upload'];
 }>;
+export declare type AccessDetailsResponseResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['AccessDetailsResponse'] = ResolversParentTypes['AccessDetailsResponse']> = ResolversObject<{
+    authorized?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+    accessUuid?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    userId?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    username?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    email?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    identifier?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    accountType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
+    exp?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    __isTypeOf?: isTypeOfResolverFn<ParentType>;
+}>;
 export declare type AddressResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Address'] = ResolversParentTypes['Address']> = ResolversObject<{
     country?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     locality?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
@@ -656,7 +694,8 @@ export declare type AttachmentResolvers<ContextType = OoJobContext, ParentType e
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 export declare type AuthResponseResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['AuthResponse'] = ResolversParentTypes['AuthResponse']> = ResolversObject<{
-    token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    access_token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+    refresh_token?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     valid?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
@@ -833,6 +872,7 @@ export declare type QueryResolvers<ContextType = OoJobContext, ParentType extend
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     ValidateUsername?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateUsernameArgs, 'input'>>;
     ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>;
+    VerifyToken?: Resolver<ResolversTypes['AccessDetailsResponse'], ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, 'input'>>;
 }>;
 export declare type RangeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
     min?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
@@ -882,6 +922,7 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
     name: 'Upload';
 }
 export declare type Resolvers<ContextType = OoJobContext> = ResolversObject<{
+    AccessDetailsResponse?: AccessDetailsResponseResolvers<ContextType>;
     Address?: AddressResolvers<ContextType>;
     AggregateRating?: AggregateRatingResolvers<ContextType>;
     Applicant?: ApplicantResolvers<ContextType>;

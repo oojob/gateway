@@ -80,10 +80,12 @@ export const Mutation: MutationResolvers = {
 		const res: AuthResponseSchema = {}
 		try {
 			const tokenResponse = (await auth(authRequest)) as AuthResponse
-			res.token = tokenResponse.getToken()
+			res.access_token = tokenResponse.getAccessToken()
+			res.refresh_token = tokenResponse.getRefreshToken()
 			res.valid = tokenResponse.getValid()
 		} catch (error) {
-			res.token = ''
+			res.access_token = ''
+			res.refresh_token = ''
 			res.valid = false
 		}
 
