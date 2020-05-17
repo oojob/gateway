@@ -1,12 +1,15 @@
 import {
+	AccessDetails,
 	AuthRequest,
 	AuthResponse,
 	Profile,
 	ProfileSecurity,
+	TokenRequest,
 	ValidateEmailRequest,
 	ValidateUsernameRequest
 } from '@oojob/protorepo-profile-node/service_pb'
 import {
+	AccessDetailsResponse as AccessDetailsResponseSchema,
 	AuthResponse as AuthResponseSchema,
 	DefaultResponse as DefaultResponseSchema,
 	Id as IdSchema,
@@ -14,13 +17,14 @@ import {
 	QueryResolvers
 } from 'generated/graphql'
 import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
-import { auth, createProfile, validateEmail, validateUsername } from 'client/profile/transformer'
+import { auth, createProfile, validateEmail, validateUsername, verifyToken } from 'client/profile/transformer'
 
 export const Query: QueryResolvers = {
 	ValidateUsername: async (_, { input }, { tracer }) => {
 		const span = tracer.startSpan('client:service-profile:validate-username')
 
 		const res: DefaultResponseSchema = {}
+
 		// tracer.withSpanAsync(span, async () => {
 		const username = input.username
 		const validateUsernameReq = new ValidateUsernameRequest()
@@ -45,8 +49,9 @@ export const Query: QueryResolvers = {
 		return res
 	},
 	ValidateEmail: async (_, { input }) => {
-		const email = input.email
 		const validateEmailReq = new ValidateEmailRequest()
+
+		const email = input.email
 		if (email) {
 			validateEmailReq.setEmail(email)
 		}
@@ -61,6 +66,39 @@ export const Query: QueryResolvers = {
 			res.status = false
 			res.error = message
 			res.code = code
+		}
+
+		return res
+	},
+	VerifyToken: async (_, { input }) => {
+		const tokenRequest = new TokenRequest()
+
+		const token = input.token
+		if (token) {
+			tokenRequest.setToken(token)
+		}
+
+		const res: AccessDetailsResponseSchema = {}
+		try {
+			const tokenRes = (await verifyToken(tokenRequest)) as AccessDetails
+			res.verified = tokenRes.getVerified()
+			res.accessUuid = tokenRes.getAccessUuid()
+			res.accountType = tokenRes.getAccountType()
+			res.authorized = tokenRes.getAuthorized()
+			res.email = tokenRes.getEmail()
+			res.identifier = tokenRes.getIdentifier()
+			res.userId = tokenRes.getUserId()
+			res.username = tokenRes.getUsername()
+		} catch (error) {
+			res.verified = false
+			res.accessUuid = null
+			res.accountType = null
+			res.authorized = false
+			res.email = ''
+			res.exp = null
+			res.identifier = ''
+			res.userId = null
+			res.username = null
 		}
 
 		return res
