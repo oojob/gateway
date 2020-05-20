@@ -1,6 +1,7 @@
 import { ApolloServer, PubSub } from 'apollo-server-express';
 import { AccessDetailsResponse } from 'generated/graphql';
 import { Request } from 'express';
+import tracer from 'tracer';
 import winston from 'winston';
 export declare const pubsub: PubSub;
 export declare const typeDefs: import("graphql").DocumentNode[];
@@ -79,17 +80,17 @@ export declare const resolvers: {
     }> | undefined;
     Edge?: import("./generated/graphql").WithIndex<{
         cursor?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
+            node: import("./generated/graphql").Result[];
         }, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
+            node: import("./generated/graphql").Result[];
         }, OoJobContext, {}> | undefined;
-        node?: import("./generated/graphql").ResolverFn<(import("./generated/graphql").Company | import("./generated/graphql").Job | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[], Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
-        }, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<(import("./generated/graphql").Company | import("./generated/graphql").Job | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[], Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
+        node?: import("./generated/graphql").ResolverFn<(import("./generated/graphql").Job | import("./generated/graphql").Company | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[], Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
+            node: import("./generated/graphql").Result[];
+        }, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<(import("./generated/graphql").Job | import("./generated/graphql").Company | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[], Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
+            node: import("./generated/graphql").Result[];
         }, OoJobContext, {}> | undefined;
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job)[];
+            node: import("./generated/graphql").Result[];
         }> | undefined;
     }> | undefined;
     Education?: import("./generated/graphql").WithIndex<{
@@ -127,10 +128,10 @@ export declare const resolvers: {
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Identifier> | undefined;
     }> | undefined;
     INode?: import("./generated/graphql").WithIndex<{
-        __resolveType: import("./generated/graphql").TypeResolveFn<"Company" | "Job", import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext>;
-        id?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | undefined;
-        createdAt?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | undefined;
-        updatedAt?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext, {}> | undefined;
+        __resolveType: import("./generated/graphql").TypeResolveFn<"Company" | "Job", import("./generated/graphql").Result, OoJobContext>;
+        id?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Result, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Result, OoJobContext, {}> | undefined;
+        createdAt?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Result, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Result, OoJobContext, {}> | undefined;
+        updatedAt?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Result, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>, import("./generated/graphql").Result, OoJobContext, {}> | undefined;
     }> | undefined;
     Job?: import("./generated/graphql").WithIndex<{
         id?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Job, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<string>, import("./generated/graphql").Job, OoJobContext, {}> | undefined;
@@ -153,9 +154,9 @@ export declare const resolvers: {
     }> | undefined;
     JobResultCursor?: import("./generated/graphql").WithIndex<{
         edges?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[];
+            node: (import("./generated/graphql").Job | import("./generated/graphql").Company | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[];
         }>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<Pick<import("./generated/graphql").Edge, "__typename" | "cursor"> & {
-            node: (import("./generated/graphql").Company | import("./generated/graphql").Job | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[];
+            node: (import("./generated/graphql").Job | import("./generated/graphql").Company | Promise<import("./generated/graphql").Job> | Promise<import("./generated/graphql").Company>)[];
         }>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | undefined;
         pageInfo?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").PageInfo>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").PageInfo>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | undefined;
         totalCount?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<number>, import("./generated/graphql").JobResultCursor, OoJobContext, {}> | undefined;
@@ -252,7 +253,7 @@ export declare const resolvers: {
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Rating> | undefined;
     }> | undefined;
     Result?: import("./generated/graphql").WithIndex<{
-        __resolveType: import("./generated/graphql").TypeResolveFn<"Company" | "Job", import("./generated/graphql").Company | import("./generated/graphql").Job, OoJobContext>;
+        __resolveType: import("./generated/graphql").TypeResolveFn<"Company" | "Job", import("./generated/graphql").Result, OoJobContext>;
     }> | undefined;
     Review?: import("./generated/graphql").WithIndex<{
         itemReviewed?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Review, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<string>>, import("./generated/graphql").Review, OoJobContext, {}> | undefined;
@@ -267,7 +268,7 @@ export declare const resolvers: {
         __isTypeOf?: import("./generated/graphql").isTypeOfResolverFn<import("./generated/graphql").Sallary> | undefined;
     }> | undefined;
     Subscription?: import("./generated/graphql").WithIndex<{
-        dummy?: ((...args: any[]) => import("./generated/graphql").SubscriptionObject<import("./generated/graphql").ResolverTypeWrapper<string>, "dummy", {}, OoJobContext, {}>) | import("./generated/graphql").SubscriptionSubscriberObject<import("./generated/graphql").ResolverTypeWrapper<string>, "dummy", {}, OoJobContext, {}> | import("./generated/graphql").SubscriptionResolverObject<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | undefined;
+        dummy?: import("./generated/graphql").SubscriptionSubscriberObject<import("./generated/graphql").ResolverTypeWrapper<string>, "dummy", {}, OoJobContext, {}> | import("./generated/graphql").SubscriptionResolverObject<import("./generated/graphql").ResolverTypeWrapper<string>, {}, OoJobContext, {}> | ((...args: any[]) => import("./generated/graphql").SubscriptionObject<import("./generated/graphql").ResolverTypeWrapper<string>, "dummy", {}, OoJobContext, {}>) | undefined;
     }> | undefined;
     Time?: import("./generated/graphql").WithIndex<{
         opens?: import("./generated/graphql").ResolverFn<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Time, OoJobContext, {}> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").Maybe<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Timestamp>>, import("./generated/graphql").Time, OoJobContext, {}> | undefined;
@@ -299,7 +300,6 @@ export declare const resolvers: {
         ReadProfile?: import("./generated/graphql").ResolverFn<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Profile>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryReadProfileArgs, "input">> | import("./generated/graphql").StitchingResolver<import("./generated/graphql").ResolverTypeWrapper<import("./generated/graphql").Profile>, {}, OoJobContext, import("./generated/graphql").RequireFields<import("./generated/graphql").QueryReadProfileArgs, "input">> | undefined;
     }>;
 };
-declare const tracer: import("@opentelemetry/api").Tracer;
 export interface OoJobContext {
     req: Request;
     pubsub: PubSub;

@@ -15,10 +15,10 @@ import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
 import { AccessDetailsResponse } from 'generated/graphql'
 import { Request } from 'express'
-import _tracer from 'tracer'
 import logger from 'logger'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
+import tracer from 'tracer'
 import winston from 'winston'
 
 export const pubsub = new PubSub()
@@ -36,7 +36,6 @@ export const typeDefs = [
 	jobSchema
 ]
 export const resolvers = merge({}, rootResolvers, profileResolvers)
-const tracer = _tracer('service:gateway')
 export interface OoJobContext {
 	req: Request
 	pubsub: PubSub
