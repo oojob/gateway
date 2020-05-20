@@ -4,6 +4,7 @@ import {
 	AuthResponse,
 	Profile,
 	ProfileSecurity,
+	ReadProfileRequest,
 	TokenRequest,
 	ValidateEmailRequest,
 	ValidateUsernameRequest
@@ -14,6 +15,8 @@ import {
 	DefaultResponse as DefaultResponseSchema,
 	Id as IdSchema,
 	MutationResolvers,
+	Profile as ProfileSchema,
+	ProfileSecurity as ProfileSecuritySchema,
 	QueryResolvers
 } from 'generated/graphql'
 import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
@@ -21,11 +24,14 @@ import {
 	auth,
 	createProfile,
 	logout,
+	readProfile,
 	refreshToken,
 	validateEmail,
 	validateUsername,
 	verifyToken
 } from 'client/profile/transformer'
+
+import { AuthenticationError } from 'apollo-server-express'
 
 export const extractTokenMetadata = async (token: string): Promise<AccessDetailsResponseSchema> => {
 	const tokenRequest = new TokenRequest()
@@ -137,6 +143,43 @@ export const Query: QueryResolvers = {
 			res.access_token = ''
 			res.refresh_token = ''
 			res.valid = false
+		}
+
+		return res
+	},
+	ReadProfile: async (_, { input }, { accessDetails }) => {
+		if (!accessDetails) {
+			throw new AuthenticationError('you must be logged in')
+		}
+
+		if (input.id !== accessDetails.userId) {
+			throw new Error("you can't access other profile")
+		}
+
+		const res: ProfileSchema = {}
+		const readProfileRequest = new ReadProfileRequest()
+		readProfileRequest.setAccountId(input.id)
+
+		try {
+			const profileRes = (await readProfile(readProfileRequest)) as Profile
+			const profileSecurity: ProfileSecuritySchema = {}
+
+			const email = {
+				email: profileRes.getEmail()?.getEmail(),
+				// status: profileRes.getEmail()?.getStatus(),
+				show: profileRes.getEmail()?.getShow()
+			}
+
+			profileSecurity.verified = profileRes.getSecurity()?.getVerified()
+
+			res.username = profileRes.getUsername()
+			res.givenName = profileRes.getGivenName()
+			res.familyName = profileRes.getFamilyName()
+			res.middleName = profileRes.getMiddleName()
+			res.email = email
+			res.security = profileSecurity
+		} catch (error) {
+			throw new Error(error)
 		}
 
 		return res

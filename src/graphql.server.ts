@@ -14,6 +14,7 @@ import { ApolloServer, PubSub } from 'apollo-server-express'
 import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
 import { AccessDetails } from '@oojob/protorepo-profile-node/service_pb'
+import { AccessDetailsResponse } from 'generated/graphql'
 import { Request } from 'express'
 import _tracer from 'tracer'
 import { merge } from 'lodash'
@@ -40,15 +41,22 @@ export interface OoJobContext {
 	pubsub: PubSub
 	tracer: typeof tracer
 	token: string
-	accessDetails: AccessDetails
+	accessDetails: AccessDetailsResponse
 }
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
 	context: async ({ req, connection }) => {
-		const tokenData = req.headers.authorization || ''
-		const token = tokenData.split(' ')[1]
-		const accessDetails = await extractTokenMetadata(token)
+		const tokenData = req.headers.authorization
+		let token: string | undefined = undefined
+		let accessDetails: AccessDetailsResponse | undefined = undefined
+
+		if (tokenData) {
+			token = tokenData.split(' ')[1]
+		}
+		if (token) {
+			accessDetails = await extractTokenMetadata(token)
+		}
 
 		return {
 			req,

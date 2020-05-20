@@ -26,11 +26,6 @@ type Education {
 	show: Boolean
 }
 type ProfileSecurity {
-	password: String
-	passwordSalt: String
-	passwordHash: String
-	code: String
-	codeType: String
 	accountType: AccountType
 	verified: Boolean
 }
@@ -109,6 +104,7 @@ extend type Query {
 	ValidateEmail(input: ValidateEmailInput!): DefaultResponse!
 	VerifyToken(input: TokenRequest): AccessDetailsResponse!
 	RefreshToken(input: TokenRequest): AuthResponse!
+	ReadProfile(input: IdInput!): Profile!
 }
 extend type Mutation {
 	CreateProfile(input: ProfileInput!): Id!

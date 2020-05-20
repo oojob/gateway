@@ -378,11 +378,6 @@ export declare enum ProfileOperations {
 }
 export declare type ProfileSecurity = {
     __typename?: 'ProfileSecurity';
-    password?: Maybe<Scalars['String']>;
-    passwordSalt?: Maybe<Scalars['String']>;
-    passwordHash?: Maybe<Scalars['String']>;
-    code?: Maybe<Scalars['String']>;
-    codeType?: Maybe<Scalars['String']>;
     accountType?: Maybe<AccountType>;
     verified?: Maybe<Scalars['Boolean']>;
 };
@@ -397,6 +392,7 @@ export declare type Query = {
     ValidateEmail: DefaultResponse;
     VerifyToken: AccessDetailsResponse;
     RefreshToken: AuthResponse;
+    ReadProfile: Profile;
 };
 export declare type QueryValidateUsernameArgs = {
     input: ValidateUsernameInput;
@@ -409,6 +405,9 @@ export declare type QueryVerifyTokenArgs = {
 };
 export declare type QueryRefreshTokenArgs = {
     input?: Maybe<TokenRequest>;
+};
+export declare type QueryReadProfileArgs = {
+    input: IdInput;
 };
 export declare type Range = {
     __typename?: 'Range';
@@ -520,18 +519,28 @@ export declare type ResolversTypes = ResolversObject<{
     TokenRequest: TokenRequest;
     AccessDetailsResponse: ResolverTypeWrapper<AccessDetailsResponse>;
     AuthResponse: ResolverTypeWrapper<AuthResponse>;
+    IdInput: IdInput;
+    ID: ResolverTypeWrapper<Scalars['ID']>;
+    Profile: ResolverTypeWrapper<Profile>;
+    Identifier: ResolverTypeWrapper<Identifier>;
+    Email: ResolverTypeWrapper<Email>;
+    EmailStatus: EmailStatus;
+    Gender: Gender;
+    Timestamp: ResolverTypeWrapper<Timestamp>;
+    Education: ResolverTypeWrapper<Education>;
+    Address: ResolverTypeWrapper<Address>;
+    ProfileSecurity: ResolverTypeWrapper<ProfileSecurity>;
+    AccountType: AccountType;
+    Metadata: ResolverTypeWrapper<Metadata>;
     Mutation: ResolverTypeWrapper<{}>;
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
     EmailInput: EmailInput;
-    Gender: Gender;
     TimestampInput: TimestampInput;
     EducationInput: EducationInput;
     AddressInput: AddressInput;
     ProfileSecurityInput: ProfileSecurityInput;
-    AccountType: AccountType;
     Id: ResolverTypeWrapper<Id>;
-    ID: ResolverTypeWrapper<Scalars['ID']>;
     AuthRequestInput: AuthRequestInput;
     Subscription: ResolverTypeWrapper<{}>;
     Date: ResolverTypeWrapper<Scalars['Date']>;
@@ -541,7 +550,6 @@ export declare type ResolversTypes = ResolversObject<{
     Result: ResolversTypes['Job'] | ResolversTypes['Company'];
     Job: ResolverTypeWrapper<Job>;
     INode: ResolversTypes['Job'] | ResolversTypes['Company'];
-    Timestamp: ResolverTypeWrapper<Timestamp>;
     JobType: JobType;
     Range: ResolverTypeWrapper<Range>;
     Attachment: ResolverTypeWrapper<Attachment>;
@@ -552,18 +560,12 @@ export declare type ResolversTypes = ResolversObject<{
     Sort: Sort;
     Pagination: ResolverTypeWrapper<Pagination>;
     PaginationInput: PaginationInput;
-    Metadata: ResolverTypeWrapper<Metadata>;
     Rating: ResolverTypeWrapper<Rating>;
     AggregateRating: ResolverTypeWrapper<AggregateRating>;
     Review: ResolverTypeWrapper<Review>;
     GeoLocation: ResolverTypeWrapper<GeoLocation>;
-    Address: ResolverTypeWrapper<Address>;
     Place: ResolverTypeWrapper<Place>;
-    EmailStatus: EmailStatus;
-    Email: ResolverTypeWrapper<Email>;
-    Identifier: ResolverTypeWrapper<Identifier>;
     RangeInput: RangeInput;
-    IdInput: IdInput;
     AttachmentInput: AttachmentInput;
     ProfileOperationOptions: ProfileOperationOptions;
     MapProfilePermission: ResolverTypeWrapper<MapProfilePermission>;
@@ -572,9 +574,6 @@ export declare type ResolversTypes = ResolversObject<{
     Time: ResolverTypeWrapper<Time>;
     ProfileOperations: ProfileOperations;
     OperationEntity: OperationEntity;
-    Education: ResolverTypeWrapper<Education>;
-    ProfileSecurity: ResolverTypeWrapper<ProfileSecurity>;
-    Profile: ResolverTypeWrapper<Profile>;
     CompanyInput: CompanyInput;
     Sallary: ResolverTypeWrapper<Sallary>;
     Float: ResolverTypeWrapper<Scalars['Float']>;
@@ -595,18 +594,28 @@ export declare type ResolversParentTypes = ResolversObject<{
     TokenRequest: TokenRequest;
     AccessDetailsResponse: AccessDetailsResponse;
     AuthResponse: AuthResponse;
+    IdInput: IdInput;
+    ID: Scalars['ID'];
+    Profile: Profile;
+    Identifier: Identifier;
+    Email: Email;
+    EmailStatus: EmailStatus;
+    Gender: Gender;
+    Timestamp: Timestamp;
+    Education: Education;
+    Address: Address;
+    ProfileSecurity: ProfileSecurity;
+    AccountType: AccountType;
+    Metadata: Metadata;
     Mutation: {};
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
     EmailInput: EmailInput;
-    Gender: Gender;
     TimestampInput: TimestampInput;
     EducationInput: EducationInput;
     AddressInput: AddressInput;
     ProfileSecurityInput: ProfileSecurityInput;
-    AccountType: AccountType;
     Id: Id;
-    ID: Scalars['ID'];
     AuthRequestInput: AuthRequestInput;
     Subscription: {};
     Date: Scalars['Date'];
@@ -616,7 +625,6 @@ export declare type ResolversParentTypes = ResolversObject<{
     Result: ResolversParentTypes['Job'] | ResolversParentTypes['Company'];
     Job: Job;
     INode: ResolversParentTypes['Job'] | ResolversParentTypes['Company'];
-    Timestamp: Timestamp;
     JobType: JobType;
     Range: Range;
     Attachment: Attachment;
@@ -627,18 +635,12 @@ export declare type ResolversParentTypes = ResolversObject<{
     Sort: Sort;
     Pagination: Pagination;
     PaginationInput: PaginationInput;
-    Metadata: Metadata;
     Rating: Rating;
     AggregateRating: AggregateRating;
     Review: Review;
     GeoLocation: GeoLocation;
-    Address: Address;
     Place: Place;
-    EmailStatus: EmailStatus;
-    Email: Email;
-    Identifier: Identifier;
     RangeInput: RangeInput;
-    IdInput: IdInput;
     AttachmentInput: AttachmentInput;
     ProfileOperationOptions: ProfileOperationOptions;
     MapProfilePermission: MapProfilePermission;
@@ -647,9 +649,6 @@ export declare type ResolversParentTypes = ResolversObject<{
     Time: Time;
     ProfileOperations: ProfileOperations;
     OperationEntity: OperationEntity;
-    Education: Education;
-    ProfileSecurity: ProfileSecurity;
-    Profile: Profile;
     CompanyInput: CompanyInput;
     Sallary: Sallary;
     Float: Scalars['Float'];
@@ -868,11 +867,6 @@ export declare type ProfileResolvers<ContextType = OoJobContext, ParentType exte
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
 }>;
 export declare type ProfileSecurityResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['ProfileSecurity'] = ResolversParentTypes['ProfileSecurity']> = ResolversObject<{
-    password?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-    passwordSalt?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-    passwordHash?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-    code?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
-    codeType?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
     accountType?: Resolver<Maybe<ResolversTypes['AccountType']>, ParentType, ContextType>;
     verified?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>;
     __isTypeOf?: isTypeOfResolverFn<ParentType>;
@@ -883,6 +877,7 @@ export declare type QueryResolvers<ContextType = OoJobContext, ParentType extend
     ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>;
     VerifyToken?: Resolver<ResolversTypes['AccessDetailsResponse'], ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, never>>;
     RefreshToken?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, RequireFields<QueryRefreshTokenArgs, never>>;
+    ReadProfile?: Resolver<ResolversTypes['Profile'], ParentType, ContextType, RequireFields<QueryReadProfileArgs, 'input'>>;
 }>;
 export declare type RangeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
     min?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
