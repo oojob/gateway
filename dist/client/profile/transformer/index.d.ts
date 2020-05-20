@@ -7,3 +7,4 @@ export declare const validateEmail: (arg1: import("@oojob/protorepo-profile-node
 export declare const auth: (arg1: import("@oojob/protorepo-profile-node/service_pb").AuthRequest) => Promise<unknown>;
 export declare const verifyToken: (arg1: import("@oojob/protorepo-profile-node/service_pb").TokenRequest) => Promise<unknown>;
 export declare const logout: (arg1: import("@oojob/protorepo-profile-node/service_pb").TokenRequest) => Promise<unknown>;
+export declare const refreshToken: (arg1: import("@oojob/protorepo-profile-node/service_pb").TokenRequest) => Promise<unknown>;

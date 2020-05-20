@@ -10,3 +10,4 @@ export const validateEmail = promisify(profileClient.validateEmail).bind(profile
 export const auth = promisify(profileClient.auth).bind(profileClient)
 export const verifyToken = promisify(profileClient.verifyToken).bind(profileClient)
 export const logout = promisify(profileClient.logout).bind(profileClient)
+export const refreshToken = promisify(profileClient.refreshToken).bind(profileClient)

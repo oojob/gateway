@@ -17,7 +17,15 @@ import {
 	QueryResolvers
 } from 'generated/graphql'
 import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
-import { auth, createProfile, logout, validateEmail, validateUsername, verifyToken } from 'client/profile/transformer'
+import {
+	auth,
+	createProfile,
+	logout,
+	refreshToken,
+	validateEmail,
+	validateUsername,
+	verifyToken
+} from 'client/profile/transformer'
 
 export const extractTokenMetadata = async (token: string): Promise<AccessDetailsResponseSchema> => {
 	const tokenRequest = new TokenRequest()
@@ -107,6 +115,28 @@ export const Query: QueryResolvers = {
 		const token = (input && input.token) || accessToken
 		if (token) {
 			res = await extractTokenMetadata(token)
+		}
+
+		return res
+	},
+	RefreshToken: async (_, { input }, { token: accessToken }) => {
+		const res: AuthResponseSchema = {}
+
+		const tokenRequest = new TokenRequest()
+		const token = (input && input.token) || accessToken
+		if (token) {
+			tokenRequest.setToken(token)
+		}
+
+		try {
+			const tokenResponse = (await refreshToken(tokenRequest)) as AuthResponse
+			res.access_token = tokenResponse.getAccessToken()
+			res.refresh_token = tokenResponse.getRefreshToken()
+			res.valid = tokenResponse.getValid()
+		} catch (error) {
+			res.access_token = ''
+			res.refresh_token = ''
+			res.valid = false
 		}
 
 		return res

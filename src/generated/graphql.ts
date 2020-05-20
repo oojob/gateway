@@ -312,7 +312,7 @@ export type Mutation = {
 	__typename?: 'Mutation'
 	dummy: Scalars['String']
 	CreateProfile: Id
-	Auth?: Maybe<AuthResponse>
+	Auth: AuthResponse
 	Logout: DefaultResponse
 }
 
@@ -448,6 +448,7 @@ export type Query = {
 	ValidateUsername: DefaultResponse
 	ValidateEmail: DefaultResponse
 	VerifyToken: AccessDetailsResponse
+	RefreshToken: AuthResponse
 }
 
 export type QueryValidateUsernameArgs = {
@@ -459,6 +460,10 @@ export type QueryValidateEmailArgs = {
 }
 
 export type QueryVerifyTokenArgs = {
+	input?: Maybe<TokenRequest>
+}
+
+export type QueryRefreshTokenArgs = {
 	input?: Maybe<TokenRequest>
 }
 
@@ -629,6 +634,7 @@ export type ResolversTypes = ResolversObject<{
 	ValidateEmailInput: ValidateEmailInput
 	TokenRequest: TokenRequest
 	AccessDetailsResponse: ResolverTypeWrapper<AccessDetailsResponse>
+	AuthResponse: ResolverTypeWrapper<AuthResponse>
 	Mutation: ResolverTypeWrapper<{}>
 	ProfileInput: ProfileInput
 	IdentifierInput: IdentifierInput
@@ -642,7 +648,6 @@ export type ResolversTypes = ResolversObject<{
 	Id: ResolverTypeWrapper<Id>
 	ID: ResolverTypeWrapper<Scalars['ID']>
 	AuthRequestInput: AuthRequestInput
-	AuthResponse: ResolverTypeWrapper<AuthResponse>
 	Subscription: ResolverTypeWrapper<{}>
 	Date: ResolverTypeWrapper<Scalars['Date']>
 	Edge: ResolverTypeWrapper<Omit<Edge, 'node'> & { node: Array<ResolversTypes['Result']> }>
@@ -704,6 +709,7 @@ export type ResolversParentTypes = ResolversObject<{
 	ValidateEmailInput: ValidateEmailInput
 	TokenRequest: TokenRequest
 	AccessDetailsResponse: AccessDetailsResponse
+	AuthResponse: AuthResponse
 	Mutation: {}
 	ProfileInput: ProfileInput
 	IdentifierInput: IdentifierInput
@@ -717,7 +723,6 @@ export type ResolversParentTypes = ResolversObject<{
 	Id: Id
 	ID: Scalars['ID']
 	AuthRequestInput: AuthRequestInput
-	AuthResponse: AuthResponse
 	Subscription: {}
 	Date: Scalars['Date']
 	Edge: Omit<Edge, 'node'> & { node: Array<ResolversParentTypes['Result']> }
@@ -1013,12 +1018,7 @@ export type MutationResolvers<
 		ContextType,
 		RequireFields<MutationCreateProfileArgs, 'input'>
 	>
-	Auth?: Resolver<
-		Maybe<ResolversTypes['AuthResponse']>,
-		ParentType,
-		ContextType,
-		RequireFields<MutationAuthArgs, never>
-	>
+	Auth?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, RequireFields<MutationAuthArgs, never>>
 	Logout?: Resolver<
 		ResolversTypes['DefaultResponse'],
 		ParentType,
@@ -1128,6 +1128,12 @@ export type QueryResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<QueryVerifyTokenArgs, never>
+	>
+	RefreshToken?: Resolver<
+		ResolversTypes['AuthResponse'],
+		ParentType,
+		ContextType,
+		RequireFields<QueryRefreshTokenArgs, never>
 	>
 }>
 

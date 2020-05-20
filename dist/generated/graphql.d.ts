@@ -276,7 +276,7 @@ export declare type Mutation = {
     __typename?: 'Mutation';
     dummy: Scalars['String'];
     CreateProfile: Id;
-    Auth?: Maybe<AuthResponse>;
+    Auth: AuthResponse;
     Logout: DefaultResponse;
 };
 export declare type MutationCreateProfileArgs = {
@@ -396,6 +396,7 @@ export declare type Query = {
     ValidateUsername: DefaultResponse;
     ValidateEmail: DefaultResponse;
     VerifyToken: AccessDetailsResponse;
+    RefreshToken: AuthResponse;
 };
 export declare type QueryValidateUsernameArgs = {
     input: ValidateUsernameInput;
@@ -404,6 +405,9 @@ export declare type QueryValidateEmailArgs = {
     input: ValidateEmailInput;
 };
 export declare type QueryVerifyTokenArgs = {
+    input?: Maybe<TokenRequest>;
+};
+export declare type QueryRefreshTokenArgs = {
     input?: Maybe<TokenRequest>;
 };
 export declare type Range = {
@@ -515,6 +519,7 @@ export declare type ResolversTypes = ResolversObject<{
     ValidateEmailInput: ValidateEmailInput;
     TokenRequest: TokenRequest;
     AccessDetailsResponse: ResolverTypeWrapper<AccessDetailsResponse>;
+    AuthResponse: ResolverTypeWrapper<AuthResponse>;
     Mutation: ResolverTypeWrapper<{}>;
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
@@ -528,7 +533,6 @@ export declare type ResolversTypes = ResolversObject<{
     Id: ResolverTypeWrapper<Id>;
     ID: ResolverTypeWrapper<Scalars['ID']>;
     AuthRequestInput: AuthRequestInput;
-    AuthResponse: ResolverTypeWrapper<AuthResponse>;
     Subscription: ResolverTypeWrapper<{}>;
     Date: ResolverTypeWrapper<Scalars['Date']>;
     Edge: ResolverTypeWrapper<Omit<Edge, 'node'> & {
@@ -590,6 +594,7 @@ export declare type ResolversParentTypes = ResolversObject<{
     ValidateEmailInput: ValidateEmailInput;
     TokenRequest: TokenRequest;
     AccessDetailsResponse: AccessDetailsResponse;
+    AuthResponse: AuthResponse;
     Mutation: {};
     ProfileInput: ProfileInput;
     IdentifierInput: IdentifierInput;
@@ -603,7 +608,6 @@ export declare type ResolversParentTypes = ResolversObject<{
     Id: Id;
     ID: Scalars['ID'];
     AuthRequestInput: AuthRequestInput;
-    AuthResponse: AuthResponse;
     Subscription: {};
     Date: Scalars['Date'];
     Edge: Omit<Edge, 'node'> & {
@@ -815,7 +819,7 @@ export declare type MetadataResolvers<ContextType = OoJobContext, ParentType ext
 export declare type MutationResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = ResolversObject<{
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     CreateProfile?: Resolver<ResolversTypes['Id'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
-    Auth?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationAuthArgs, never>>;
+    Auth?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, RequireFields<MutationAuthArgs, never>>;
     Logout?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<MutationLogoutArgs, never>>;
 }>;
 export declare type PageInfoResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
@@ -878,6 +882,7 @@ export declare type QueryResolvers<ContextType = OoJobContext, ParentType extend
     ValidateUsername?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateUsernameArgs, 'input'>>;
     ValidateEmail?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<QueryValidateEmailArgs, 'input'>>;
     VerifyToken?: Resolver<ResolversTypes['AccessDetailsResponse'], ParentType, ContextType, RequireFields<QueryVerifyTokenArgs, never>>;
+    RefreshToken?: Resolver<ResolversTypes['AuthResponse'], ParentType, ContextType, RequireFields<QueryRefreshTokenArgs, never>>;
 }>;
 export declare type RangeResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['Range'] = ResolversParentTypes['Range']> = ResolversObject<{
     min?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
