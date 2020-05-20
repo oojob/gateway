@@ -17,7 +17,7 @@ import {
 	QueryResolvers
 } from 'generated/graphql'
 import { DefaultResponse, Email, Id, Identifier } from '@oojob/oojob-protobuf'
-import { auth, createProfile, validateEmail, validateUsername, verifyToken } from 'client/profile/transformer'
+import { auth, createProfile, logout, validateEmail, validateUsername, verifyToken } from 'client/profile/transformer'
 
 export const extractTokenMetadata = async (token: string): Promise<AccessDetailsResponseSchema> => {
 	const tokenRequest = new TokenRequest()
@@ -171,6 +171,28 @@ export const Mutation: MutationResolvers = {
 		}
 
 		return profileResponse
+	},
+	Logout: async (_, { input }, { token: accessToken }) => {
+		const res: DefaultResponseSchema = {}
+		const tokenRequest = new TokenRequest()
+
+		const token = (input && input.token) || accessToken
+		if (token) {
+			tokenRequest.setToken(token)
+		}
+
+		try {
+			const logoutRes = (await logout(tokenRequest)) as DefaultResponse
+			res.status = logoutRes.getStatus()
+			res.code = logoutRes.getCode()
+			res.error = logoutRes.getError()
+		} catch ({ message, code }) {
+			res.status = false
+			res.error = message
+			res.code = code
+		}
+
+		return res
 	}
 }
 

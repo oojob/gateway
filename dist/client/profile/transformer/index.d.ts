@@ -6,3 +6,4 @@ export declare const validateUsername: (arg1: import("@oojob/protorepo-profile-n
 export declare const validateEmail: (arg1: import("@oojob/protorepo-profile-node/service_pb").ValidateEmailRequest) => Promise<unknown>;
 export declare const auth: (arg1: import("@oojob/protorepo-profile-node/service_pb").AuthRequest) => Promise<unknown>;
 export declare const verifyToken: (arg1: import("@oojob/protorepo-profile-node/service_pb").TokenRequest) => Promise<unknown>;
+export declare const logout: (arg1: import("@oojob/protorepo-profile-node/service_pb").TokenRequest) => Promise<unknown>;

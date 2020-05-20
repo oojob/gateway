@@ -112,4 +112,5 @@ extend type Query {
 extend type Mutation {
 	CreateProfile(input: ProfileInput!): Id!
 	Auth(input: AuthRequestInput): AuthResponse
+	Logout(input: TokenRequest): DefaultResponse!
 }

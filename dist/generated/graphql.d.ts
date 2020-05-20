@@ -277,12 +277,16 @@ export declare type Mutation = {
     dummy: Scalars['String'];
     CreateProfile: Id;
     Auth?: Maybe<AuthResponse>;
+    Logout: DefaultResponse;
 };
 export declare type MutationCreateProfileArgs = {
     input: ProfileInput;
 };
 export declare type MutationAuthArgs = {
     input?: Maybe<AuthRequestInput>;
+};
+export declare type MutationLogoutArgs = {
+    input?: Maybe<TokenRequest>;
 };
 export declare enum OperationEntity {
     Company = "COMPANY",
@@ -812,6 +816,7 @@ export declare type MutationResolvers<ContextType = OoJobContext, ParentType ext
     dummy?: Resolver<ResolversTypes['String'], ParentType, ContextType>;
     CreateProfile?: Resolver<ResolversTypes['Id'], ParentType, ContextType, RequireFields<MutationCreateProfileArgs, 'input'>>;
     Auth?: Resolver<Maybe<ResolversTypes['AuthResponse']>, ParentType, ContextType, RequireFields<MutationAuthArgs, never>>;
+    Logout?: Resolver<ResolversTypes['DefaultResponse'], ParentType, ContextType, RequireFields<MutationLogoutArgs, never>>;
 }>;
 export declare type PageInfoResolvers<ContextType = OoJobContext, ParentType extends ResolversParentTypes['PageInfo'] = ResolversParentTypes['PageInfo']> = ResolversObject<{
     endCursor?: Resolver<ResolversTypes['String'], ParentType, ContextType>;

@@ -313,6 +313,7 @@ export type Mutation = {
 	dummy: Scalars['String']
 	CreateProfile: Id
 	Auth?: Maybe<AuthResponse>
+	Logout: DefaultResponse
 }
 
 export type MutationCreateProfileArgs = {
@@ -321,6 +322,10 @@ export type MutationCreateProfileArgs = {
 
 export type MutationAuthArgs = {
 	input?: Maybe<AuthRequestInput>
+}
+
+export type MutationLogoutArgs = {
+	input?: Maybe<TokenRequest>
 }
 
 export enum OperationEntity {
@@ -1013,6 +1018,12 @@ export type MutationResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<MutationAuthArgs, never>
+	>
+	Logout?: Resolver<
+		ResolversTypes['DefaultResponse'],
+		ParentType,
+		ContextType,
+		RequireFields<MutationLogoutArgs, never>
 	>
 }>
 
