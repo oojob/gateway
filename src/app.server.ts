@@ -2,6 +2,7 @@ import * as express from 'express'
 
 import AppUtils from 'utillity'
 import { Application } from 'express'
+import logger from 'logger'
 import middlewaes from 'middlewares'
 
 class App {
@@ -10,6 +11,7 @@ class App {
 
 	constructor() {
 		this.app = express()
+		this.app.logger = logger
 
 		this.appUtils = new AppUtils(this.app)
 		this.applyServer()

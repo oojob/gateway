@@ -9,7 +9,8 @@
 	"plugins": ["@typescript-eslint", "prettier", "jsdoc"],
 	"env": {
 		"node": true,
-		"jest": true
+		"jest": true,
+		"es6": true
 	},
 	"rules": {
 		"camelcase": "off",

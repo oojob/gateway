@@ -5,3 +5,5 @@ declare class AppCurrency {
     getPrimary: () => number;
     getSecondary: () => number;
 }
+export { AppCurrency };
+export default AppCurrency;

@@ -65,7 +65,8 @@ export const extractTokenMetadata = async (token: string): Promise<AccessDetails
 }
 
 export const Query: QueryResolvers = {
-	ValidateUsername: async (_, { input }, { tracer }) => {
+	ValidateUsername: async (_, { input }, { tracer, logger }) => {
+		logger.info('validating username')
 		const span = tracer.startSpan('client:service-profile:validate-username')
 
 		const res: DefaultResponseSchema = {}

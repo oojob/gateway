@@ -23,3 +23,6 @@ class AppCurrency {
 		return this.secondary
 	}
 }
+
+export { AppCurrency }
+export default AppCurrency

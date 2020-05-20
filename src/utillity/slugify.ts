@@ -17,4 +17,5 @@ class AppSlugify {
 	}
 }
 
+export { AppSlugify }
 export default AppSlugify

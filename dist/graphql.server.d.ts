@@ -1,6 +1,7 @@
 import { ApolloServer, PubSub } from 'apollo-server-express';
 import { AccessDetailsResponse } from 'generated/graphql';
 import { Request } from 'express';
+import winston from 'winston';
 export declare const pubsub: PubSub;
 export declare const typeDefs: import("graphql").DocumentNode[];
 export declare const resolvers: {
@@ -305,6 +306,7 @@ export interface OoJobContext {
     tracer: typeof tracer;
     token: string;
     accessDetails: AccessDetailsResponse;
+    logger: winston.Logger;
 }
 declare const server: ApolloServer;
 export default server;

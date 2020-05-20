@@ -4,4 +4,5 @@ declare class AppSlugify {
     constructor(app: Application);
     slugify: (text: string) => string;
 }
+export { AppSlugify };
 export default AppSlugify;

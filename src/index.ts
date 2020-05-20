@@ -3,6 +3,8 @@ import 'dotenv/config'
 import { app, server, startSyncServer, stopServer } from 'oojob.server'
 import { fork, isMaster, on } from 'cluster'
 
+import logger from 'logger'
+
 declare const module: any
 
 const start = async () => {
@@ -22,7 +24,7 @@ const start = async () => {
 if (isMaster) {
 	const numCPUs = require('os').cpus().length
 
-	console.log(`Master ${process.pid} is running`)
+	logger.info(`Master ${process.pid} is running`)
 
 	// Fork workers.
 	for (let i = 0; i < numCPUs; i++) {
@@ -30,11 +32,11 @@ if (isMaster) {
 	}
 
 	on('fork', (worker) => {
-		console.log('worker is dead:', worker.isDead())
+		logger.info('worker is dead:', worker.isDead())
 	})
 
 	on('exit', (worker) => {
-		console.log('worker is dead:', worker.isDead())
+		logger.info('worker is dead:', worker.isDead())
 	})
 } else {
 	/**
@@ -43,7 +45,7 @@ if (isMaster) {
 	 */
 	let currentApp = app
 	if (module.hot) {
-		module.hot.accept('app.server', () => {
+		module.hot.accept('oojob.server', () => {
 			server.removeListener('request', currentApp)
 			server.on('request', app)
 			currentApp = app
@@ -63,5 +65,5 @@ if (isMaster) {
 	// In this case it is an HTTP server
 	start()
 
-	console.log(`Worker ${process.pid} started`)
+	logger.info(`Worker ${process.pid} started`)
 }

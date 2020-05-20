@@ -3,6 +3,7 @@ import { Server, createServer } from 'http'
 import App from 'app.server'
 import { Application } from 'express'
 import graphqlServer from 'graphql.server'
+import logger from 'logger'
 import { normalizePort } from 'utillity/normalize'
 
 class OojobServer {
@@ -11,7 +12,18 @@ class OojobServer {
 
 	constructor(app: Application) {
 		this.app = app
-		graphqlServer.applyMiddleware({ app })
+		graphqlServer.applyMiddleware({
+			app,
+			onHealthCheck: () =>
+				new Promise((resolve, reject) => {
+					// Replace the `true` in this conditional with more specific checks!
+					if (parseInt('2') === 2) {
+						resolve()
+					} else {
+						reject()
+					}
+				})
+		})
 		this.server = createServer(app)
 		graphqlServer.installSubscriptionHandlers(this.server)
 	}
@@ -20,8 +32,9 @@ class OojobServer {
 		try {
 			const PORT = normalizePort(port)
 			this.server.listen(PORT, () => {
-				console.log(`server ready at http://localhost:${PORT}${graphqlServer.graphqlPath}`)
-				console.log(`Subscriptions ready at ws://localhost:${PORT}${graphqlServer.subscriptionsPath}`)
+				logger.info(`server ready at http://localhost:${PORT}${graphqlServer.graphqlPath}`)
+				logger.info(`Subscriptions ready at ws://localhost:${PORT}${graphqlServer.subscriptionsPath}`)
+				logger.info(`Try your health check at: http://localhost:${PORT}/.well-known/apollo/server-health`)
 			})
 		} catch (error) {
 			await this.stopServer()
@@ -30,11 +43,11 @@ class OojobServer {
 
 	stopServer = async () => {
 		process.on('SIGINT', async () => {
-			console.log('Closing oojob SyncServer ...')
+			logger.info('Closing oojob SyncServer ...')
 
 			try {
 				this.server.close()
-				console.log('oojob SyncServer Closed')
+				logger.info('oojob SyncServer Closed')
 			} catch (error) {
 				console.error('Error Closing SyncServer Server Connection')
 				console.error(error)

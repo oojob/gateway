@@ -13,12 +13,13 @@ import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 import { ApolloServer, PubSub } from 'apollo-server-express'
 import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
-import { AccessDetails } from '@oojob/protorepo-profile-node/service_pb'
 import { AccessDetailsResponse } from 'generated/graphql'
 import { Request } from 'express'
 import _tracer from 'tracer'
+import logger from 'logger'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
+import winston from 'winston'
 
 export const pubsub = new PubSub()
 export const typeDefs = [
@@ -42,6 +43,7 @@ export interface OoJobContext {
 	tracer: typeof tracer
 	token: string
 	accessDetails: AccessDetailsResponse
+	logger: winston.Logger
 }
 const server = new ApolloServer({
 	typeDefs,
@@ -64,7 +66,8 @@ const server = new ApolloServer({
 			pubsub,
 			tracer,
 			accessDetails,
-			token
+			token,
+			logger
 		}
 	},
 	tracing: true
