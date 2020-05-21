@@ -1,16 +1,27 @@
+import opentelemetry, { Tracer } from '@opentelemetry/api'
+
 import { JaegerExporter } from '@opentelemetry/exporter-jaeger'
 import { MeterProvider } from '@opentelemetry/metrics'
 import { NodeTracerProvider } from '@opentelemetry/node'
 import { PrometheusExporter } from '@opentelemetry/exporter-prometheus'
 import { SimpleSpanProcessor } from '@opentelemetry/tracing'
-import opentelemetry from '@opentelemetry/api'
 
-const tracer = (serviceName: string) => {
+const tracer = (serviceName: string): Tracer => {
 	const provider = new NodeTracerProvider({
 		plugins: {
+			express: {
+				enabled: true,
+				path: '@opentelemetry/plugin-express'
+			},
 			grpc: {
 				enabled: true,
 				path: '@opentelemetry/plugin-grpc'
+			},
+			http: {
+				enabled: true,
+				// You may use a package name or absolute path to the file.
+				path: '@opentelemetry/plugin-http'
+				// http plugin options
 			}
 		}
 	})
@@ -46,8 +57,9 @@ const tracer = (serviceName: string) => {
 	 * and used by instrumentation libraries.
 	 */
 	opentelemetry.metrics.setGlobalMeterProvider(meterProvider)
+	const tracer = opentelemetry.trace.getTracer('service:gateway')
 
-	return opentelemetry.trace.getTracer('service:gateway')
+	return tracer
 }
 
 export default tracer

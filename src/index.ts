@@ -4,8 +4,12 @@ import { app, server, startSyncServer, stopServer } from 'oojob.server'
 import { fork, isMaster, on } from 'cluster'
 
 import logger from 'logger'
+import tracer from 'tracer'
 
 declare const module: any
+
+export const appTracer = tracer('service:gateway')
+export const span = appTracer.startSpan('grpc:service')
 
 const start = async () => {
 	const { PORT } = process.env

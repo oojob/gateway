@@ -75,6 +75,7 @@
     "@opentelemetry/exporter-prometheus": "^0.8.1",
     "@opentelemetry/metrics": "^0.8.1",
     "@opentelemetry/node": "^0.8.1",
+    "@opentelemetry/plugin-express": "^0.7.0",
     "@opentelemetry/plugin-http": "^0.8.1",
     "@opentelemetry/tracing": "^0.8.1",
     "@sentry/integrations": "^5.15.5",

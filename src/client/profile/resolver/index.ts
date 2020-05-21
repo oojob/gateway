@@ -65,35 +65,26 @@ export const extractTokenMetadata = async (token: string): Promise<AccessDetails
 }
 
 export const Query: QueryResolvers = {
-	ValidateUsername: async (_, { input }, { tracer, logger }) => {
-		const _tracer = tracer('service-profile')
+	ValidateUsername: async (_, { input }, { logger }) => {
 		logger.info('validating username')
 
-		const span = _tracer.startSpan('client:service-profile:validate-username', {
-			parent: _tracer.getCurrentSpan()
-		})
 		const res: DefaultResponseSchema = {}
+		const username = input.username
+		const validateUsernameReq = new ValidateUsernameRequest()
+		if (username) {
+			validateUsernameReq.setUsername(username)
+		}
 
-		_tracer.withSpan(span, async () => {
-			const username = input.username
-			const validateUsernameReq = new ValidateUsernameRequest()
-			if (username) {
-				validateUsernameReq.setUsername(username)
-			}
-
-			try {
-				const validateRes = (await validateUsername(validateUsernameReq)) as DefaultResponse
-				res.status = validateRes.getStatus()
-				res.code = validateRes.getCode()
-				res.error = validateRes.getError()
-				span.end()
-			} catch ({ message, code }) {
-				res.status = false
-				res.error = message
-				res.code = code
-				span.end()
-			}
-		})
+		try {
+			const validateRes = (await validateUsername(validateUsernameReq)) as DefaultResponse
+			res.status = validateRes.getStatus()
+			res.code = validateRes.getCode()
+			res.error = validateRes.getError()
+		} catch ({ message, code }) {
+			res.status = false
+			res.error = message
+			res.code = code
+		}
 
 		return res
 	},
@@ -191,37 +182,28 @@ export const Query: QueryResolvers = {
 }
 
 export const Mutation: MutationResolvers = {
-	Auth: async (_, { input }, { tracer, logger }) => {
+	Auth: async (_, { input }, { logger }) => {
 		logger.info('mutation : AUTH')
-		const _tracer = tracer('service-profile')
 
-		const span = _tracer.startSpan('client:service-profile:auth', {
-			parent: _tracer.getCurrentSpan()
-		})
 		const res: AuthResponseSchema = {}
+		const authRequest = new AuthRequest()
+		if (input?.username) {
+			authRequest.setUsername(input.username)
+		}
+		if (input?.password) {
+			authRequest.setPassword(input.password)
+		}
 
-		_tracer.withSpan(span, async () => {
-			const authRequest = new AuthRequest()
-			if (input?.username) {
-				authRequest.setUsername(input.username)
-			}
-			if (input?.password) {
-				authRequest.setPassword(input.password)
-			}
-
-			try {
-				const tokenResponse = (await auth(authRequest)) as AuthResponse
-				res.access_token = tokenResponse.getAccessToken()
-				res.refresh_token = tokenResponse.getRefreshToken()
-				res.valid = tokenResponse.getValid()
-				span.end()
-			} catch (error) {
-				res.access_token = ''
-				res.refresh_token = ''
-				res.valid = false
-				span.end()
-			}
-		})
+		try {
+			const tokenResponse = (await auth(authRequest)) as AuthResponse
+			res.access_token = tokenResponse.getAccessToken()
+			res.refresh_token = tokenResponse.getRefreshToken()
+			res.valid = tokenResponse.getValid()
+		} catch (error) {
+			res.access_token = ''
+			res.refresh_token = ''
+			res.valid = false
+		}
 
 		return res
 	},

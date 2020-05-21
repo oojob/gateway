@@ -12,17 +12,19 @@ import * as systemSchema from 'client/root/schema/oojob/system.graphql'
 import * as timeSchema from 'client/root/schema/oojob/time.graphql'
 
 import { ApolloServer, PubSub } from 'apollo-server-express'
+import { appTracer, span } from 'index'
 import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
 import { AccessDetailsResponse } from 'generated/graphql'
 import { RedisCache } from 'apollo-server-cache-redis'
 import { Request } from 'express'
+import { Span } from '@opentelemetry/tracing'
+import { Tracer } from '@opentelemetry/api'
 import { config } from 'service/config/redis'
 import createGraphQLErrorFormatter from 'service/error/graphql.error'
 import logger from 'logger'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
-import tracer from 'tracer'
 import winston from 'winston'
 
 export const pubsub = new PubSub()
@@ -43,7 +45,8 @@ export const resolvers = merge({}, rootResolvers, profileResolvers)
 export interface OoJobContext {
 	req: Request
 	pubsub: PubSub
-	tracer: typeof tracer
+	appTracer: Tracer
+	span: Span
 	token: string
 	accessDetails: AccessDetailsResponse
 	logger: winston.Logger
@@ -68,7 +71,8 @@ const server = new ApolloServer({
 			req,
 			connection,
 			pubsub,
-			tracer,
+			appTracer,
+			span,
 			accessDetails,
 			token,
 			logger
