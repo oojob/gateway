@@ -13,11 +13,12 @@
 		"suppressImplicitAnyIndexErrors": true,
 		"strictPropertyInitialization": false,
 		"strict": true,
-		"outDir": "./dist",
+		"outDir": "dist",
 		"baseUrl": "src",
 		"allowSyntheticDefaultImports": true,
 		"downlevelIteration": true,
 		"importHelpers": true,
+		"allowJs": true,
 		"typeRoots": ["typings", "node_modules/@types"]
 	},
 	"include": ["src/**/*", "typings/**/*"],

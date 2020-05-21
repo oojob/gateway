@@ -192,6 +192,7 @@ export const Query: QueryResolvers = {
 
 export const Mutation: MutationResolvers = {
 	Auth: async (_, { input }, { tracer, logger }) => {
+		logger.info('mutation : AUTH')
 		const _tracer = tracer('service-profile')
 
 		const span = _tracer.startSpan('client:service-profile:auth', {

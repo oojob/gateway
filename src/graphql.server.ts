@@ -1,6 +1,7 @@
 import * as applicantsSchema from 'client/root/schema/oojob/applicants.graphql'
 import * as companySchema from 'client/company/schema/schema.graphql'
 import * as cursorSchema from 'client/root/schema/oojob/cursor.graphql'
+import * as depthLimit from 'graphql-depth-limit'
 import * as jobSchema from 'client/job/schema/schema.graphql'
 import * as metadataSchema from 'client/root/schema/oojob/metadata.graphql'
 import * as permissionsSchema from 'client/root/schema/oojob/permissions.graphql'
@@ -14,7 +15,10 @@ import { ApolloServer, PubSub } from 'apollo-server-express'
 import profileResolvers, { extractTokenMetadata } from 'client/profile/resolver'
 
 import { AccessDetailsResponse } from 'generated/graphql'
+import { RedisCache } from 'apollo-server-cache-redis'
 import { Request } from 'express'
+import { config } from 'service/config/redis'
+import createGraphQLErrorFormatter from 'service/error/graphql.error'
 import logger from 'logger'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
@@ -47,6 +51,7 @@ export interface OoJobContext {
 const server = new ApolloServer({
 	typeDefs,
 	resolvers,
+	formatError: createGraphQLErrorFormatter(),
 	context: async ({ req, connection }) => {
 		const tokenData = req.headers.authorization
 		let token: string | undefined = undefined
@@ -69,7 +74,19 @@ const server = new ApolloServer({
 			logger
 		}
 	},
-	tracing: true
+	tracing: true,
+	introspection: process.env.NODE_ENV !== 'production',
+	engine: false,
+	validationRules: [depthLimit(10)],
+	cacheControl: {
+		calculateHttpHeaders: false,
+		// Cache everything for at least a minute since we only cache public responses
+		defaultMaxAge: 60
+	},
+	cache: new RedisCache({
+		...config,
+		keyPrefix: 'apollo-cache:'
+	})
 })
 
 export default server
