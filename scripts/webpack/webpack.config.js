@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-var-requires  */
+/* eslint-disable  */
 const path = require('path')
 const webpack = require('webpack')
 const StartServerPlugin = require('start-server-webpack-plugin')
@@ -15,7 +15,6 @@ const plugins = [new webpack.NamedModulesPlugin(), new CleanWebpackPlugin({})]
 const entry = isProduction ? ['./src/index.ts'] : ['webpack/hot/poll?1000', './src/index.ts']
 const configFile = path.join(__dirname, '..', '..', 'tsconfig.json')
 
-/* eslint-disable no-console */
 console.log(`Building for : ${mode} environment`)
 
 module.exports = {
@@ -57,7 +56,7 @@ module.exports = {
 				name: 'server.js',
 				nodeArgs: ['--inspect']
 			})
-		  ],
+		],
 	node: {
 		__dirname: false,
 		__filename: false
