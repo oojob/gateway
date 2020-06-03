@@ -1,3 +1,5 @@
+import { HealthCheckRequest, HealthCheckResponse } from '@oojob/protorepo-company-node/service_pb'
+
 import profileClient from 'client/profile'
 import { promisify } from 'util'
 
@@ -11,3 +13,4 @@ export const auth = promisify(profileClient.auth).bind(profileClient)
 export const verifyToken = promisify(profileClient.verifyToken).bind(profileClient)
 export const logout = promisify(profileClient.logout).bind(profileClient)
 export const refreshToken = promisify(profileClient.refreshToken).bind(profileClient)
+export const check = promisify<HealthCheckRequest, HealthCheckResponse>(profileClient.check).bind(profileClient)
