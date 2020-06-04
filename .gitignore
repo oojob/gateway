@@ -15,6 +15,10 @@ locale/_build/
 locale/**/*.js
 test.js
 
+# build
+dist/
+build/
+
 # misc
 .DS_Store
 .env
