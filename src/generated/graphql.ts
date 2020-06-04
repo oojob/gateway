@@ -293,10 +293,83 @@ export enum JobType {
 	Premium = 'PREMIUM'
 }
 
+export type Mail = {
+	__typename?: 'Mail'
+	id?: Maybe<Scalars['ID']>
+	notifications?: Maybe<MailNotifications>
+	mail_templates?: Maybe<Array<Maybe<MailTemplate>>>
+	messages?: Maybe<UserMessageBox>
+	mails?: Maybe<UserMailBox>
+}
+
+export type MailConversation = {
+	__typename?: 'MailConversation'
+	from?: Maybe<Scalars['String']>
+	to?: Maybe<Scalars['String']>
+	subject?: Maybe<Scalars['String']>
+	messages?: Maybe<Array<Maybe<Message>>>
+	template?: Maybe<Scalars['String']>
+}
+
+export type MailNotifications = {
+	__typename?: 'MailNotifications'
+	daily_digest?: Maybe<Scalars['Boolean']>
+	new_direct_message?: Maybe<Scalars['Boolean']>
+	new_mention?: Maybe<Scalars['Boolean']>
+	new_message_in_threads?: Maybe<Scalars['Boolean']>
+	new_thread_created?: Maybe<Scalars['Boolean']>
+	weekly_digest?: Maybe<Scalars['Boolean']>
+	new_event_created?: Maybe<Scalars['Boolean']>
+	new_interview?: Maybe<Scalars['Boolean']>
+}
+
+export type MailNotificationsInput = {
+	daily_digest?: Maybe<Scalars['Boolean']>
+	new_direct_message?: Maybe<Scalars['Boolean']>
+	new_mention?: Maybe<Scalars['Boolean']>
+	new_message_in_threads?: Maybe<Scalars['Boolean']>
+	new_thread_created?: Maybe<Scalars['Boolean']>
+	weekly_digest?: Maybe<Scalars['Boolean']>
+	new_event_created?: Maybe<Scalars['Boolean']>
+	new_interview?: Maybe<Scalars['Boolean']>
+}
+
+export type MailTemplate = {
+	__typename?: 'MailTemplate'
+	id?: Maybe<Scalars['String']>
+	primary_color?: Maybe<Scalars['String']>
+	secondary_color?: Maybe<Scalars['String']>
+	logo?: Maybe<Scalars['String']>
+}
+
+export type MailTemplateInput = {
+	primary_color?: Maybe<Scalars['String']>
+	secondary_color?: Maybe<Scalars['String']>
+	logo?: Maybe<Scalars['String']>
+}
+
 export type MapProfilePermission = {
 	__typename?: 'MapProfilePermission'
 	key?: Maybe<Scalars['String']>
 	profileOperations?: Maybe<Array<Maybe<ProfileOperationOptions>>>
+}
+
+export type Message = {
+	__typename?: 'Message'
+	id?: Maybe<Scalars['String']>
+	message?: Maybe<Scalars['String']>
+}
+
+export type MessageConversation = {
+	__typename?: 'MessageConversation'
+	id?: Maybe<Scalars['String']>
+	to?: Maybe<Scalars['String']>
+	messages?: Maybe<Array<Maybe<Message>>>
+}
+
+export type MessageInput = {
+	id?: Maybe<Scalars['String']>
+	message?: Maybe<Scalars['String']>
 }
 
 export type Metadata = {
@@ -314,6 +387,7 @@ export type Mutation = {
 	CreateProfile: Id
 	Auth: AuthResponse
 	Logout: DefaultResponse
+	SendMail?: Maybe<DefaultResponse>
 }
 
 export type MutationCreateProfileArgs = {
@@ -326,6 +400,10 @@ export type MutationAuthArgs = {
 
 export type MutationLogoutArgs = {
 	input?: Maybe<TokenRequest>
+}
+
+export type MutationSendMailArgs = {
+	input?: Maybe<SendMailReq>
 }
 
 export enum OperationEntity {
@@ -508,6 +586,14 @@ export type SallaryInput = {
 	currency: Scalars['String']
 }
 
+export type SendMailReq = {
+	from?: Maybe<Scalars['String']>
+	to?: Maybe<Scalars['String']>
+	subject?: Maybe<Scalars['String']>
+	message?: Maybe<Scalars['String']>
+	template?: Maybe<Scalars['String']>
+}
+
 export enum Sort {
 	Asc = 'ASC',
 	Desc = 'DESC'
@@ -542,6 +628,16 @@ export type TokenRequest = {
 	token?: Maybe<Scalars['String']>
 	accessUuid?: Maybe<Scalars['String']>
 	userId?: Maybe<Scalars['String']>
+}
+
+export type UserMailBox = {
+	__typename?: 'UserMailBox'
+	id?: Maybe<Scalars['String']>
+}
+
+export type UserMessageBox = {
+	__typename?: 'UserMessageBox'
+	id?: Maybe<Scalars['ID']>
 }
 
 export type ValidateEmailInput = {
@@ -658,6 +754,7 @@ export type ResolversTypes = ResolversObject<{
 	ProfileSecurityInput: ProfileSecurityInput
 	Id: ResolverTypeWrapper<Id>
 	AuthRequestInput: AuthRequestInput
+	SendMailReq: SendMailReq
 	Subscription: ResolverTypeWrapper<{}>
 	Date: ResolverTypeWrapper<Scalars['Date']>
 	Edge: ResolverTypeWrapper<Omit<Edge, 'node'> & { node: Array<ResolversTypes['Result']> }>
@@ -694,6 +791,17 @@ export type ResolversTypes = ResolversObject<{
 	JobResultCursor: ResolverTypeWrapper<JobResultCursor>
 	SallaryInput: SallaryInput
 	CreateJobInput: CreateJobInput
+	MailTemplate: ResolverTypeWrapper<MailTemplate>
+	MailNotifications: ResolverTypeWrapper<MailNotifications>
+	Message: ResolverTypeWrapper<Message>
+	MessageConversation: ResolverTypeWrapper<MessageConversation>
+	MailConversation: ResolverTypeWrapper<MailConversation>
+	UserMailBox: ResolverTypeWrapper<UserMailBox>
+	UserMessageBox: ResolverTypeWrapper<UserMessageBox>
+	Mail: ResolverTypeWrapper<Mail>
+	MailTemplateInput: MailTemplateInput
+	MailNotificationsInput: MailNotificationsInput
+	MessageInput: MessageInput
 	CacheControlScope: CacheControlScope
 	Upload: ResolverTypeWrapper<Scalars['Upload']>
 }>
@@ -733,6 +841,7 @@ export type ResolversParentTypes = ResolversObject<{
 	ProfileSecurityInput: ProfileSecurityInput
 	Id: Id
 	AuthRequestInput: AuthRequestInput
+	SendMailReq: SendMailReq
 	Subscription: {}
 	Date: Scalars['Date']
 	Edge: Omit<Edge, 'node'> & { node: Array<ResolversParentTypes['Result']> }
@@ -769,6 +878,17 @@ export type ResolversParentTypes = ResolversObject<{
 	JobResultCursor: JobResultCursor
 	SallaryInput: SallaryInput
 	CreateJobInput: CreateJobInput
+	MailTemplate: MailTemplate
+	MailNotifications: MailNotifications
+	Message: Message
+	MessageConversation: MessageConversation
+	MailConversation: MailConversation
+	UserMailBox: UserMailBox
+	UserMessageBox: UserMessageBox
+	Mail: Mail
+	MailTemplateInput: MailTemplateInput
+	MailNotificationsInput: MailNotificationsInput
+	MessageInput: MessageInput
 	CacheControlScope: CacheControlScope
 	Upload: Scalars['Upload']
 }>
@@ -986,12 +1106,81 @@ export type JobResultCursorResolvers<
 	__isTypeOf?: isTypeOfResolverFn<ParentType>
 }>
 
+export type MailResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['Mail'] = ResolversParentTypes['Mail']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>
+	notifications?: Resolver<Maybe<ResolversTypes['MailNotifications']>, ParentType, ContextType>
+	mail_templates?: Resolver<Maybe<Array<Maybe<ResolversTypes['MailTemplate']>>>, ParentType, ContextType>
+	messages?: Resolver<Maybe<ResolversTypes['UserMessageBox']>, ParentType, ContextType>
+	mails?: Resolver<Maybe<ResolversTypes['UserMailBox']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type MailConversationResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['MailConversation'] = ResolversParentTypes['MailConversation']
+> = ResolversObject<{
+	from?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	to?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	subject?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType>
+	template?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type MailNotificationsResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['MailNotifications'] = ResolversParentTypes['MailNotifications']
+> = ResolversObject<{
+	daily_digest?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_direct_message?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_mention?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_message_in_threads?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_thread_created?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	weekly_digest?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_event_created?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	new_interview?: Resolver<Maybe<ResolversTypes['Boolean']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type MailTemplateResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['MailTemplate'] = ResolversParentTypes['MailTemplate']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	primary_color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	secondary_color?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	logo?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
 export type MapProfilePermissionResolvers<
 	ContextType = OoJobContext,
 	ParentType extends ResolversParentTypes['MapProfilePermission'] = ResolversParentTypes['MapProfilePermission']
 > = ResolversObject<{
 	key?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
 	profileOperations?: Resolver<Maybe<Array<Maybe<ResolversTypes['ProfileOperationOptions']>>>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type MessageResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['Message'] = ResolversParentTypes['Message']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	message?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type MessageConversationResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['MessageConversation'] = ResolversParentTypes['MessageConversation']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	to?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	messages?: Resolver<Maybe<Array<Maybe<ResolversTypes['Message']>>>, ParentType, ContextType>
 	__isTypeOf?: isTypeOfResolverFn<ParentType>
 }>
 
@@ -1024,6 +1213,12 @@ export type MutationResolvers<
 		ParentType,
 		ContextType,
 		RequireFields<MutationLogoutArgs, never>
+	>
+	SendMail?: Resolver<
+		Maybe<ResolversTypes['DefaultResponse']>,
+		ParentType,
+		ContextType,
+		RequireFields<MutationSendMailArgs, never>
 	>
 }>
 
@@ -1218,6 +1413,22 @@ export interface UploadScalarConfig extends GraphQLScalarTypeConfig<ResolversTyp
 	name: 'Upload'
 }
 
+export type UserMailBoxResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['UserMailBox'] = ResolversParentTypes['UserMailBox']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
+export type UserMessageBoxResolvers<
+	ContextType = OoJobContext,
+	ParentType extends ResolversParentTypes['UserMessageBox'] = ResolversParentTypes['UserMessageBox']
+> = ResolversObject<{
+	id?: Resolver<Maybe<ResolversTypes['ID']>, ParentType, ContextType>
+	__isTypeOf?: isTypeOfResolverFn<ParentType>
+}>
+
 export type Resolvers<ContextType = OoJobContext> = ResolversObject<{
 	AccessDetailsResponse?: AccessDetailsResponseResolvers<ContextType>
 	Address?: AddressResolvers<ContextType>
@@ -1237,7 +1448,13 @@ export type Resolvers<ContextType = OoJobContext> = ResolversObject<{
 	INode?: INodeResolvers
 	Job?: JobResolvers<ContextType>
 	JobResultCursor?: JobResultCursorResolvers<ContextType>
+	Mail?: MailResolvers<ContextType>
+	MailConversation?: MailConversationResolvers<ContextType>
+	MailNotifications?: MailNotificationsResolvers<ContextType>
+	MailTemplate?: MailTemplateResolvers<ContextType>
 	MapProfilePermission?: MapProfilePermissionResolvers<ContextType>
+	Message?: MessageResolvers<ContextType>
+	MessageConversation?: MessageConversationResolvers<ContextType>
 	Metadata?: MetadataResolvers<ContextType>
 	Mutation?: MutationResolvers<ContextType>
 	PageInfo?: PageInfoResolvers<ContextType>
@@ -1256,6 +1473,8 @@ export type Resolvers<ContextType = OoJobContext> = ResolversObject<{
 	Time?: TimeResolvers<ContextType>
 	Timestamp?: TimestampResolvers<ContextType>
 	Upload?: GraphQLScalarType
+	UserMailBox?: UserMailBoxResolvers<ContextType>
+	UserMessageBox?: UserMessageBoxResolvers<ContextType>
 }>
 
 /**

@@ -3,6 +3,7 @@ import * as companySchema from 'client/company/schema/schema.graphql'
 import * as cursorSchema from 'client/root/schema/oojob/cursor.graphql'
 import * as depthLimit from 'graphql-depth-limit'
 import * as jobSchema from 'client/job/schema/schema.graphql'
+import * as mailSchema from 'client/mail/schema/schema.graphql'
 import * as metadataSchema from 'client/root/schema/oojob/metadata.graphql'
 import * as permissionsSchema from 'client/root/schema/oojob/permissions.graphql'
 import * as placeSchema from 'client/root/schema/oojob/place.graphql'
@@ -23,6 +24,7 @@ import { Tracer } from '@opentelemetry/api'
 import { config } from 'service/config/redis'
 import createGraphQLErrorFormatter from 'service/error/graphql.error'
 import logger from 'logger'
+import mailResolvers from 'client/mail/resolver'
 import { merge } from 'lodash'
 import rootResolvers from 'client/root/resolver'
 import winston from 'winston'
@@ -39,9 +41,10 @@ export const typeDefs = [
 	timeSchema,
 	profileSchema,
 	companySchema,
-	jobSchema
+	jobSchema,
+	mailSchema
 ]
-export const resolvers = merge({}, rootResolvers, profileResolvers)
+export const resolvers = merge({}, rootResolvers, profileResolvers, mailResolvers)
 export interface OoJobContext {
 	req: Request
 	pubsub: PubSub

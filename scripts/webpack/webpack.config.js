@@ -54,7 +54,7 @@ module.exports = {
 			new webpack.NoEmitOnErrorsPlugin(),
 			new StartServerPlugin({
 				name: 'server.js',
-				nodeArgs: ['--inspect']
+				nodeArgs: ['--inspect=0.0.0.0:9229']
 			})
 		],
 	node: {

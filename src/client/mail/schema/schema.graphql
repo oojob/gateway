@@ -1,0 +1,86 @@
+type MailTemplate {
+	id: String
+	primary_color: String
+	secondary_color: String
+	logo: String
+}
+
+type MailNotifications {
+	daily_digest: Boolean
+	new_direct_message: Boolean
+	new_mention: Boolean
+	new_message_in_threads: Boolean
+	new_thread_created: Boolean
+	weekly_digest: Boolean
+	new_event_created: Boolean
+	new_interview: Boolean
+}
+
+type Message {
+	id: String
+	message: String
+}
+
+type MessageConversation {
+	id: String
+	to: String
+	messages: [Message]
+}
+
+type MailConversation {
+	from: String
+	to: String
+	subject: String
+	messages: [Message]
+	template: String
+}
+
+type UserMailBox {
+	id: String
+}
+
+type UserMessageBox {
+	id: ID
+}
+
+type Mail {
+	id: ID
+	notifications: MailNotifications
+	mail_templates: [MailTemplate]
+	messages: UserMessageBox
+	mails: UserMailBox
+}
+
+input MailTemplateInput {
+	primary_color: String
+	secondary_color: String
+	logo: String
+}
+
+input MailNotificationsInput {
+	daily_digest: Boolean
+	new_direct_message: Boolean
+	new_mention: Boolean
+	new_message_in_threads: Boolean
+	new_thread_created: Boolean
+	weekly_digest: Boolean
+	new_event_created: Boolean
+	new_interview: Boolean
+}
+
+input MessageInput {
+	id: String
+	message: String
+}
+
+input SendMailReq {
+	from: String
+	to: String
+	subject: String
+	message: String
+	template: String
+}
+
+extend type Mutation {
+	SendMail(input: SendMailReq): DefaultResponse
+}
