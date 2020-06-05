@@ -19,6 +19,9 @@ export const Mutation: MutationResolvers = {
 		if (input && input.message) {
 			sendMailReq.setMessage(input.message)
 		}
+		if (input && input.subject) {
+			sendMailReq.setSubject(input.subject)
+		}
 
 		try {
 			const mailRes = ((await sendMail(sendMailReq)) as unknown) as DefaultResponse
