@@ -1,12 +1,26 @@
+import { AuthenticationError, UserInputError } from 'apollo-server-express'
 import { DefaultResponse as DefaultResponseSchema, MutationResolvers } from 'generated/graphql'
 
 import { DefaultResponse } from '@oojob/oojob-protobuf'
 import { SendMailReq } from '@oojob/protorepo-mail-node/service_pb'
+import Validation from 'utillity/validator'
 import { sendMail } from '../transformer'
 
 export const Mutation: MutationResolvers = {
-	SendMail: async (_, { input }, { logger }) => {
+	SendMail: async (_, { input }, { logger, accessDetails }) => {
 		logger.info('send mail')
+
+		if (!accessDetails) {
+			throw new AuthenticationError('you must be logged in')
+		}
+		const validation = new Validation()
+		validation.isRequired(input?.to, 'to is required')
+		validation.isRequired(input?.subject, 'subject is required')
+		validation.isRequired(input?.message, 'message is required')
+
+		if (!validation.isValid()) {
+			throw new UserInputError(validation.errors())
+		}
 
 		const res: DefaultResponseSchema = {}
 		const sendMailReq = new SendMailReq()
