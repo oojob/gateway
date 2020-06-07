@@ -1839,6 +1839,16 @@
         "fields": null,
         "inputFields": [
           {
+            "name": "user_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
+          {
             "name": "from",
             "description": null,
             "type": {
@@ -5644,6 +5654,16 @@
         "description": null,
         "fields": null,
         "inputFields": [
+          {
+            "name": "user_id",
+            "description": null,
+            "type": {
+              "kind": "SCALAR",
+              "name": "String",
+              "ofType": null
+            },
+            "defaultValue": null
+          },
           {
             "name": "id",
             "description": null,

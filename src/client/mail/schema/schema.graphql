@@ -69,11 +69,13 @@ input MailNotificationsInput {
 }
 
 input MessageInput {
+	user_id: String
 	id: String
 	message: String
 }
 
 input SendMailReq {
+	user_id: String
 	from: String
 	to: String
 	subject: String

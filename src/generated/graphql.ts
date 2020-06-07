@@ -368,6 +368,7 @@ export type MessageConversation = {
 }
 
 export type MessageInput = {
+	user_id?: Maybe<Scalars['String']>
 	id?: Maybe<Scalars['String']>
 	message?: Maybe<Scalars['String']>
 }
@@ -587,6 +588,7 @@ export type SallaryInput = {
 }
 
 export type SendMailReq = {
+	user_id?: Maybe<Scalars['String']>
 	from?: Maybe<Scalars['String']>
 	to?: Maybe<Scalars['String']>
 	subject?: Maybe<Scalars['String']>

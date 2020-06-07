@@ -67,9 +67,9 @@
     "webpack-node-externals": "^1.7.2"
   },
   "dependencies": {
-    "@oojob/oojob-protobuf": "0.0.5",
+    "@oojob/oojob-protobuf": "0.0.9",
     "@oojob/protorepo-company-node": "0.0.10",
-    "@oojob/protorepo-mail-node": "0.0.4",
+    "@oojob/protorepo-mail-node": "0.0.10",
     "@oojob/protorepo-profile-node": "0.0.7",
     "@opentelemetry/core": "^0.8.1",
     "@opentelemetry/exporter-jaeger": "^0.8.1",
